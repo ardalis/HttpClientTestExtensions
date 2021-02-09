@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Ardalis.HttpClientTestExtensions</PackageId>
+    <Title>Ardalis.HttpClientTestExtensions</Title>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Steve Smith (@ardalis)</Authors>
+    <Company>Ardalis.com</Company>
+    <PackageProjectUrl>https://github.com/ardalis/HttpClientTestExtensions</PackageProjectUrl>
+    <Description>Helpful extension methods to use when testing APIs in Functional Tests with xUnit.</Description>
+    <Summary>Functional/integration tests using WebApplicationFactory and HttpClient often have a lot of repetition. These extensions minimize the repetition so fetching and deserializing data from endpoints is one line of code per test.</Summary>
+    <RepositoryUrl>https://github.com/ardalis/HttpClientTestExtensions</RepositoryUrl>
+    <PackageTags>aspnet asp.net aspnetcore asp.net core api web api rest endpoint controller test integration functional, xunit unit</PackageTags>
+    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <Version>0.1.0</Version>
+    <AssemblyName>Ardalis.HttpClientTestExtensions</AssemblyName>
+    <PackageIconUrl>https://user-images.githubusercontent.com/782127/33497760-facf6550-d69c-11e7-94e4-b3856da259a9.png</PackageIconUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <LangVersion>8.0</LangVersion>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
+    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
+  </ItemGroup>
+</Project>
