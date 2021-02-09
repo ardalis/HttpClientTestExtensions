@@ -1,3 +1,6 @@
+[![Nuget](https://img.shields.io/nuget/v/Ardalis.HttpClientTestExtensions)](https://www.nuget.org/packages/Ardalis.HttpClientTestExtensions/)
+[![Nuget](https://img.shields.io/nuget/dt/Ardalis.HttpClientTestExtensions)](https://www.nuget.org/packages/Ardalis.HttpClientTestExtensions/)
+
 # HttpClient Test Extensions
 
 Extensions for testing HTTP endpoints and deserializing the results. Currently works with XUnit.
