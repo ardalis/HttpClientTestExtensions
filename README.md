@@ -47,14 +47,28 @@ public class DoctorsList : IClassFixture<CustomWebApplicationFactory<Startup>>
 You can now update the test to eliminate all but one of the lines prior to the assertions:
 
 ```
-  [Fact]
-  public async Task Returns3Doctors()
-  {
-    var result = await _client.GetAndDeserialize<ListDoctorResponse>("/api/doctors", _outputHelper);
+[Fact]
+public async Task Returns3Doctors()
+{
+  var result = await _client.GetAndDeserialize<ListDoctorResponse>("/api/doctors", _outputHelper);
 
-    Assert.Equal(3, result.Doctors.Count());
-    Assert.Contains(result.Doctors, x => x.Name == "Dr. Smith");
-  }
+  Assert.Equal(3, result.Doctors.Count());
+  Assert.Contains(result.Doctors, x => x.Name == "Dr. Smith");
+}
+```
+
+If you need to verify an endpoint returns a 404, you can use this approach:
+
+```
+[Fact]
+public async Task ReturnsNotFoundGivenInvalidAuthorId()
+{
+  int invalidId = 9999;
+
+  var response = await _client.GetAsync(Routes.Authors.Get(invalidId));
+
+  response.EnsureNotFound();
+}
 ```
 
 ## Notes
