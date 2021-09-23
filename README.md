@@ -10,13 +10,13 @@ Extensions for testing HTTP endpoints and deserializing the results. Currently w
 
 Add the NuGet package and in your tests add this namespace:
 
-```
+```csharp
 using Ardalis.HttpClientTestExtensions;
 ```
 
 If you have existing test code that looks something like this:
 
-```
+```csharp
 public class DoctorsList : IClassFixture<CustomWebApplicationFactory<Startup>>
 {
   private readonly HttpClient _client;
@@ -46,7 +46,7 @@ public class DoctorsList : IClassFixture<CustomWebApplicationFactory<Startup>>
 
 You can now update the test to eliminate all but one of the lines prior to the assertions:
 
-```
+```csharp
 [Fact]
 public async Task Returns3Doctors()
 {
@@ -59,7 +59,7 @@ public async Task Returns3Doctors()
 
 If you need to verify an endpoint returns a 404, you can use this approach:
 
-```
+```csharp
 [Fact]
 public async Task ReturnsNotFoundGivenInvalidAuthorId()
 {
