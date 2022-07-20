@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <PackageId>Ardalis.HttpClientTestExtensions</PackageId>
     <Title>Ardalis.HttpClientTestExtensions</Title>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -12,14 +12,14 @@
     <Summary>Functional/integration tests using WebApplicationFactory and HttpClient often have a lot of repetition. These extensions minimize the repetition so fetching and deserializing data from endpoints is one line of code per test.</Summary>
     <RepositoryUrl>https://github.com/ardalis/HttpClientTestExtensions</RepositoryUrl>
     <PackageTags>aspnet asp.net aspnetcore asp.net core api web api rest endpoint controller test integration functional xunit unit</PackageTags>
-    <PackageReleaseNotes>New release with NotFound extensions.</PackageReleaseNotes>
-    <Version>1.0.0</Version>
+    <PackageReleaseNotes>Many new extensions. Rename async methods with Async suffix. Added net6 framework target.</PackageReleaseNotes>
+    <Version>2.0.0</Version>
     <AssemblyName>Ardalis.HttpClientTestExtensions</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
