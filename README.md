@@ -80,9 +80,20 @@ public async Task ReturnsNotFoundGivenInvalidAuthorId()
 }
 ```
 
-## List of Methods
+## List of Included Helper Methods
 
+All methods are extensions on `HttpClient`; the following samples assume `client` is an `HttpClient`. All methods take an optional `ITestOutputHelper`, which is an xUnit type.
 
+```csharp
+// GET and return an object T
+AuthorDto = await client.GetAndDeserializeAsync("/Authors/1", _testOutputHelper);
+
+// GET and assert a 404 is returned
+await client.GetAndEnsureNotFoundAsync("/Authors/-1");
+
+// GET and return response as a string
+string result = client.GetAndReturnStringAsync("/HealthCheck");
+```
 
 ## Notes
 
