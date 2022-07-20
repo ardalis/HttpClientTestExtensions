@@ -6,13 +6,21 @@
 
 Extensions for testing HTTP endpoints and deserializing the results. Currently works with XUnit.
 
-## Usage
+## Installation
 
-Add the NuGet package and in your tests add this namespace:
+Add the NuGet package:
+
+```powershell
+dotnet add package Ardalis.HttpClientTestExtensions
+```
+
+In your tests add this namespace:
 
 ```csharp
 using Ardalis.HttpClientTestExtensions;
 ```
+
+## Usage
 
 If you have existing test code that looks something like this:
 
@@ -22,7 +30,8 @@ public class DoctorsList : IClassFixture<CustomWebApplicationFactory<Startup>>
   private readonly HttpClient _client;
   private readonly ITestOutputHelper _outputHelper;
 
-  public DoctorsList(CustomWebApplicationFactory<Startup> factory, ITestOutputHelper outputHelper)
+  public DoctorsList(CustomWebApplicationFactory<Startup> factory,
+    ITestOutputHelper outputHelper)
   {
     _client = factory.CreateClient();
     _outputHelper = outputHelper;
@@ -70,6 +79,10 @@ public async Task ReturnsNotFoundGivenInvalidAuthorId()
   response.EnsureNotFound();
 }
 ```
+
+## List of Methods
+
+
 
 ## Notes
 
