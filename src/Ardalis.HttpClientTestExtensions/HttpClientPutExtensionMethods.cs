@@ -6,7 +6,18 @@ namespace Ardalis.HttpClientTestExtensions;
 
 public static partial class HttpClientPutExtensionMethods
 {
-  public static async Task<HttpResponseMessage> PutAndEnsureNotFound(this HttpClient client, string requestUri, HttpContent content, ITestOutputHelper output = null)
+  /// <summary>
+  /// PUTs content to requestUri and asserts response is 404 Not Found.
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output"></param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> PutAndEnsureNotFoundAsync(this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    ITestOutputHelper output = null)
   {
     output?.WriteLine($"Requesting with PUT {requestUri}");
     var response = await client.PutAsync(requestUri, content);

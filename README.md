@@ -86,13 +86,18 @@ All methods are extensions on `HttpClient`; the following samples assume `client
 
 ```csharp
 // GET and return an object T
-AuthorDto = await client.GetAndDeserializeAsync("/Authors/1", _testOutputHelper);
+AuthorDto result = await client.GetAndDeserializeAsync("/authors/1", _testOutputHelper);
 
 // GET and assert a 404 is returned
-await client.GetAndEnsureNotFoundAsync("/Authors/-1");
+await client.GetAndEnsureNotFoundAsync("/authors/-1");
 
 // GET and return response as a string
-string result = client.GetAndReturnStringAsync("/HealthCheck");
+string result = client.GetAndReturnStringAsync("/healthcheck");
+
+// POST and assert a 404 is returned
+
+var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
 ## Notes
