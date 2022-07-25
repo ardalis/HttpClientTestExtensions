@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.1.0" />
+	<PackageReference Include="Ardalis.EFCore.Extensions" Version="1.1.0" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="6.0.7" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ardalis.HttpClientTestExtensions.Core\Ardalis.HttpClientTestExtensions.Core.csproj" />
+    <ProjectReference Include="..\Ardalis.HttpClientTestExtensions.SharedKernel\Ardalis.HttpClientTestExtensions.SharedKernel.csproj" />
+  </ItemGroup>
+	
+</Project>

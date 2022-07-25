@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Ardalis.HttpClientTestExtensions.Api": {
+      "commandName": "Project",
+      "launchUrl": "swagger",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:53239;http://localhost:53240"
+    }
+  }
+}
