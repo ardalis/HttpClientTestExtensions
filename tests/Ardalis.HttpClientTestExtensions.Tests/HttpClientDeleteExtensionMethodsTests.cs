@@ -19,7 +19,7 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   }
 
   [Fact]
-  public async Task DeleteAndEnsureNotFoundAsyncTest()
+  public async Task DeleteAndEnsureNotFoundTestAsync()
   {
     var response = await _client.DeleteAndEnsureNotFoundAsync("/wrongendpoint", _outputHelper);
 
@@ -27,7 +27,7 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   } 
   
   [Fact]
-  public async Task DeleteAndEnsureNoContentAsyncTest()
+  public async Task DeleteAndEnsureNoContentTestAsync()
   {
     var response = await _client.DeleteAndEnsureNoContentAsync("/countries/4", _outputHelper);
 
