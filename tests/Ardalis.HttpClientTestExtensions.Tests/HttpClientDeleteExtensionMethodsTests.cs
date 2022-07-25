@@ -21,7 +21,7 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   [Fact]
   public async Task DeleteAndEnsureNotFoundAsyncTest()
   {
-    var response = await _client.DeleteAndEnsureNotFoundAsync("/branches", _outputHelper);
+    var response = await _client.DeleteAndEnsureNotFoundAsync("/wrongendpoint", _outputHelper);
 
     response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
   } 
