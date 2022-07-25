@@ -1,4 +1,4 @@
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Shouldly;
@@ -24,8 +24,8 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
     var response = await _client.DeleteAndEnsureNotFoundAsync("/wrongendpoint", _outputHelper);
 
     response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
-  } 
-  
+  }
+
   [Fact]
   public async Task DeleteAndEnsureNoContentTestAsync()
   {

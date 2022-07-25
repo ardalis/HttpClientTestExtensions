@@ -111,4 +111,4 @@ using (var scope = app.Services.CreateScope())
 
 app.Run();
 
-public partial class Program {}
+public partial class Program { }
