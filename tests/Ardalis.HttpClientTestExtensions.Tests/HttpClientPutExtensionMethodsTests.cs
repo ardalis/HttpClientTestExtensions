@@ -26,8 +26,6 @@ public class HttpClientPutExtensionMethodsTests : IClassFixture<CustomWebApplica
   {
     var dto = new CountryDto();
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
-    var response = await _client.PutAndEnsureNotFoundAsync("/wrongendpoint", content, _outputHelper);
-
-    response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+    _ = await _client.PutAndEnsureNotFoundAsync("/wrongendpoint", content, _outputHelper);
   }
 }

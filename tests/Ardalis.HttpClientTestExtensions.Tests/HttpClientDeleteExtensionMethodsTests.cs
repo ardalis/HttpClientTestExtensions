@@ -23,14 +23,13 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   {
     var response = await _client.DeleteAndEnsureNotFoundAsync("/wrongendpoint", _outputHelper);
 
+    // It's not needed but shown to demonstrate it's available to use
     response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
   }
 
   [Fact]
   public async Task DeleteAndEnsureNoContentTestAsync()
   {
-    var response = await _client.DeleteAndEnsureNoContentAsync("/countries/4", _outputHelper);
-
-    response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+    _ = await _client.DeleteAndEnsureNoContentAsync("/countries/4", _outputHelper);
   }
 }

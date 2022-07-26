@@ -26,8 +26,6 @@ public class HttpClientPostExtensionMethodsTests : IClassFixture<CustomWebApplic
   {
     var dto = new CountryDto();
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
-    var response = await _client.PostAndEnsureNotFoundAsync("/wrongendpoint", content, _outputHelper);
-
-    response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+    _ = await _client.PostAndEnsureNotFoundAsync("/wrongendpoint", content, _outputHelper);
   }
 }

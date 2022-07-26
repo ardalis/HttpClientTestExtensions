@@ -35,9 +35,7 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   [Fact]
   public async Task GetAndEnsureNotFoundTestAsync()
   {
-    var response = await _client.GetAndEnsureNotFoundAsync("/wrongendpoint/USA", _outputHelper);
-
-    response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+    _ = await _client.GetAndEnsureNotFoundAsync("/wrongendpoint/USA", _outputHelper);
   }
 
   [Fact]
