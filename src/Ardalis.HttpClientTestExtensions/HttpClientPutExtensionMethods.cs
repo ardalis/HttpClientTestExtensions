@@ -7,12 +7,12 @@ namespace Ardalis.HttpClientTestExtensions;
 public static partial class HttpClientPutExtensionMethods
 {
   /// <summary>
-  /// PUTs content to requestUri and asserts response is 404 Not Found.
+  /// Ensures a PUT to a requestUri returns a 401 Unauthorized response status code
   /// </summary>
   /// <param name="client"></param>
   /// <param name="requestUri"></param>
   /// <param name="content"></param>
-  /// <param name="output"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
   public static async Task<HttpResponseMessage> PutAndEnsureNotFoundAsync(this HttpClient client,
     string requestUri,
@@ -24,4 +24,43 @@ public static partial class HttpClientPutExtensionMethods
     response.EnsureNotFound();
     return response;
   }
+
+  /// <summary>
+  /// Ensures a PUT to a requestUri returns a 401 Unauthorized response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> PutAndEnsureUnauthorizedAsync(this HttpClient client,
+  string requestUri,
+  HttpContent content,
+  ITestOutputHelper output = null)
+  {
+    output?.WriteLine($"Requesting with PUT {requestUri}");
+    var response = await client.PutAsync(requestUri, content);
+    response.EnsureUnauthorized();
+    return response;
+  }
+
+  /// <summary>
+  /// Ensures a PUT to a requestUri returns a 401 Unauthorized response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> PutAndEnsureForbiddenAsync(this HttpClient client,
+  string requestUri,
+  HttpContent content,
+  ITestOutputHelper output = null)
+  {
+    output?.WriteLine($"Requesting with PUT {requestUri}");
+    var response = await client.PutAsync(requestUri, content);
+    response.EnsureForbidden();
+    return response;
+  }
+
 }
