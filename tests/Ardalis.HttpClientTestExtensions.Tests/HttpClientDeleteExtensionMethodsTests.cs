@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Ardalis.HttpClientTestExtensions.Api;
+using Ardalis.HttpClientTestExtensions.Api.Dtos;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
@@ -16,6 +18,18 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   {
     _client = factory.CreateClient();
     _outputHelper = outputHelper;
+  }
+
+  [Fact]
+  public async Task DeleteAndDeserializeTestAsync()
+  {
+    var expectedId = SeedData.TestCountry2.Id;
+    var expectedName = SeedData.TestCountry2.Name;
+
+    var response = await _client.DeleteAndDeserializeAsync<CountryDto>("/countries/KSA", _outputHelper);
+
+    response.Id.ShouldBe(expectedId);
+    response.Name.ShouldBe(expectedName);
   }
 
   [Fact]
@@ -36,9 +50,10 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   [Fact]
   public async Task DeleteAndEnsureSubstringAsync_With_Matching_Substring()
   {
-    var response = await _client.DeleteAndEnsureSubstringAsync("/countries/USA", "ru", _outputHelper);
+    var expectedJson = "{\"id\":\"USA\",\"name\":\"USA\"}";
+    var response = await _client.DeleteAndEnsureSubstringAsync("/countries/USA", "USA", _outputHelper);
 
-    response.ShouldBe("true");
+    response.ShouldBe(expectedJson);
   }
 
   [Fact]
