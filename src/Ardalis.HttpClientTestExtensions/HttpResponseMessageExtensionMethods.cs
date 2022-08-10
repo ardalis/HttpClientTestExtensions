@@ -9,39 +9,32 @@ public static class HttpResponseMessageExtensionMethods
 {
   public static void EnsureNotFound(this HttpResponseMessage response)
   {
-    if (response.StatusCode != HttpStatusCode.NotFound)
-    {
-      ThrowHelper(HttpStatusCode.NotFound, response.StatusCode);
-    }
+    response.Ensure(HttpStatusCode.NotFound);
   }
 
   public static void EnsureNoContent(this HttpResponseMessage response)
   {
-    if (response.StatusCode != HttpStatusCode.NoContent)
-    {
-      ThrowHelper(HttpStatusCode.NoContent, response.StatusCode);
-    }
+    response.Ensure(HttpStatusCode.NoContent);
   }
 
   public static void EnsureUnauthorized(this HttpResponseMessage response)
   {
-    if (response.StatusCode != HttpStatusCode.Unauthorized)
-    {
-      ThrowHelper(HttpStatusCode.Unauthorized, response.StatusCode);
-    }
+    response.Ensure(HttpStatusCode.Unauthorized);
   }
 
   public static void EnsureForbidden(this HttpResponseMessage response)
   {
-    if (response.StatusCode != HttpStatusCode.Forbidden)
-    {
-      ThrowHelper(HttpStatusCode.Forbidden, response.StatusCode);
-    }
+    response.Ensure(HttpStatusCode.Forbidden);
+  }
+
+  public static void EnsureBadRequest(this HttpResponseMessage response)
+  {
+    response.Ensure(HttpStatusCode.BadRequest);
   }
 
   public static async Task<string> EnsureContainsAsync(
-    this HttpResponseMessage response, 
-    string substring, 
+    this HttpResponseMessage response,
+    string substring,
     ITestOutputHelper output = null)
   {
     var responseString = await response.Content.ReadAsStringAsync();
@@ -52,6 +45,14 @@ public static class HttpResponseMessageExtensionMethods
     };
 
     return responseString;
+  }
+
+  private static void Ensure(this HttpResponseMessage response, HttpStatusCode expected)
+  {
+    if (response.StatusCode != expected)
+    {
+      ThrowHelper(expected, response.StatusCode);
+    }
   }
 
   private static HttpRequestException ThrowHelper(HttpStatusCode expectedStatusCode, HttpStatusCode actualStatusCode)
