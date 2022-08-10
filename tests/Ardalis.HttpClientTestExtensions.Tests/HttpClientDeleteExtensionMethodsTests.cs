@@ -32,4 +32,18 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   {
     _ = await _client.DeleteAndEnsureNoContentAsync("/countries/4", _outputHelper);
   }
+
+  [Fact]
+  public async Task DeleteAndEnsureSubstringAsync_With_Matching_Substring()
+  {
+    var response = await _client.DeleteAndEnsureSubstringAsync("/countries/USA", "ru", _outputHelper);
+
+    response.ShouldBe("true");
+  }
+
+  [Fact]
+  public async Task DeleteAndEnsureSubstringAsync_Without_Matching_Substring()
+  {
+    await Assert.ThrowsAsync<HttpRequestException>(() => _client.DeleteAndEnsureSubstringAsync("/countries/USA", "banana", _outputHelper));
+  }
 }
