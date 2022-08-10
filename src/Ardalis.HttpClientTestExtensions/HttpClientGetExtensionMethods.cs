@@ -65,4 +65,15 @@ public static partial class HttpClientGetExtensionMethods
     response.EnsureUnauthorized();
     return response;
   }
+
+  public static async Task<HttpResponseMessage> GetAndEnsureForbiddenAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    output?.WriteLine($"Requesting with GET {requestUri}");
+    var response = await client.GetAsync(requestUri);
+    response.EnsureForbidden();
+    return response;
+  }
 }

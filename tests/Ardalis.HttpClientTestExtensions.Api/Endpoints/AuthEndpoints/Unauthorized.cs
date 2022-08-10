@@ -1,17 +1,15 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.ApiEndpoints;
+﻿using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ardalis.HttpClientTestExtensions.Api.Endpoints.AuthEndpoints;
 
-public class Unauthorized : EndpointBaseAsync
+public class Unauthorized : EndpointBaseSync
     .WithoutRequest
-    .WithoutResult
+    .WithResult<UnauthorizedResult>
 {
   [HttpGet("/unauthorized")]
-  public override Task<UnauthorizedResult> HandleAsync(CancellationToken cancellationToken = default)
+  public override UnauthorizedResult Handle()
   {
-    return Task.FromResult(Unauthorized());
+    return Unauthorized();
   }
 }

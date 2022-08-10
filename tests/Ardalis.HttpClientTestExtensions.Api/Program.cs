@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ardalis.HttpClientTestExtensions.Infrastructure.Data;
 using Ardalis.HttpClientTestExtensions.SharedKernel.Interfaces;
+using Ardalis.HttpClientTestExtensions.Api;
 
 const string CORS_POLICY = "CorsPolicy";
 
@@ -61,6 +62,13 @@ builder.Services.Configure<ServiceConfig>(config =>
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddAuthentication(options =>
+{
+  options.DefaultAuthenticateScheme = "forbidScheme";
+  options.DefaultForbidScheme = "forbidScheme";
+  options.AddScheme<MyAuthenticationHandler>("forbidScheme", "Handle Forbidden");
+});
+
 
 var app = builder.Build();
 
