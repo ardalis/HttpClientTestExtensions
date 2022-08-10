@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Ardalis.HttpClientTestExtensions.Api;
 using Ardalis.HttpClientTestExtensions.Api.Dtos;
@@ -60,5 +59,11 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   public async Task GetAndEnsureSubstringAsync_Without_Matching_Substring()
   {
     await Assert.ThrowsAsync<HttpRequestException>(() => _client.GetAndEnsureSubstringAsync("/countries/USA", "banana", _outputHelper));
+  }
+
+  [Fact]
+  public async Task GetAndEnsureUnauthorizedAsync()
+  {
+    _ = await _client.GetAndEnsureUnauthorizedAsync("/unauthorized", _outputHelper);
   }
 }

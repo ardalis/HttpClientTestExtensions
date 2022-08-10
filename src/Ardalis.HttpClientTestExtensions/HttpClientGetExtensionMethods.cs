@@ -8,8 +8,8 @@ namespace Ardalis.HttpClientTestExtensions;
 public static partial class HttpClientGetExtensionMethods
 {
   public static async Task<T> GetAndDeserializeAsync<T>(
-    this HttpClient client, 
-    string requestUri, 
+    this HttpClient client,
+    string requestUri,
     ITestOutputHelper output = null)
   {
     output?.WriteLine($"Requesting with GET {requestUri}");
@@ -24,8 +24,8 @@ public static partial class HttpClientGetExtensionMethods
   }
 
   public static async Task<HttpResponseMessage> GetAndEnsureNotFoundAsync(
-    this HttpClient client, 
-    string requestUri, 
+    this HttpClient client,
+    string requestUri,
     ITestOutputHelper output = null)
   {
     output?.WriteLine($"Requesting with GET {requestUri}");
@@ -35,8 +35,8 @@ public static partial class HttpClientGetExtensionMethods
   }
 
   public static async Task<string> GetAndReturnStringAsync(
-    this HttpClient client, 
-    string requestUri, 
+    this HttpClient client,
+    string requestUri,
     ITestOutputHelper output = null)
   {
     output?.WriteLine($"Requesting with GET {requestUri}");
@@ -45,13 +45,24 @@ public static partial class HttpClientGetExtensionMethods
   }
 
   public static async Task<string> GetAndEnsureSubstringAsync(
-    this HttpClient client, 
-    string requestUri, 
-    string substring, 
+    this HttpClient client,
+    string requestUri,
+    string substring,
     ITestOutputHelper output = null)
   {
     output?.WriteLine($"Requesting with GET {requestUri}");
     var response = await client.GetAsync(requestUri);
     return await response.EnsureContainsAsync(substring);
+  }
+
+  public static async Task<HttpResponseMessage> GetAndEnsureUnauthorizedAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    output?.WriteLine($"Requesting with GET {requestUri}");
+    var response = await client.GetAsync(requestUri);
+    response.EnsureUnauthorized();
+    return response;
   }
 }
