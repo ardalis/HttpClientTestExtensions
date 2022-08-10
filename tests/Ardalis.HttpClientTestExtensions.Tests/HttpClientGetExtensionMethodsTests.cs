@@ -48,7 +48,7 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   }
 
   [Fact]
-  public async Task GetAndEnsureSubstringAsync_With_Mathcing_Substring()
+  public async Task GetAndEnsureSubstringAsync_With_Matching_Substring()
   {
     var expectedJson = "{\"id\":\"USA\",\"name\":\"USA\"}";
     var response = await _client.GetAndEnsureSubstringAsync("/countries/USA", "USA", _outputHelper);
@@ -57,7 +57,7 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   }
 
   [Fact]
-  public async Task GetAndEnsureSubstringAsync_Without_Mathcing_Substring()
+  public async Task GetAndEnsureSubstringAsync_Without_Matching_Substring()
   {
     await Assert.ThrowsAsync<HttpRequestException>(() => _client.GetAndEnsureSubstringAsync("/countries/USA", "banana", _outputHelper));
   }
