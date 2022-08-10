@@ -61,4 +61,10 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   {
     await Assert.ThrowsAsync<HttpRequestException>(() => _client.DeleteAndEnsureSubstringAsync("/countries/USA", "banana", _outputHelper));
   }
+
+  [Fact]
+  public async Task DeleteAndEnsureUnauthorizedAsync()
+  {
+    _ = await _client.DeleteAndEnsureUnauthorizedAsync("/unauthorized", _outputHelper);
+  }
 }

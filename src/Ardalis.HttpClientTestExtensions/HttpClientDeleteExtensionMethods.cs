@@ -52,6 +52,16 @@ public static partial class HttpClientDeleteExtensionMethods
     return await response.EnsureContainsAsync(substring);
   }
 
+  public static async Task<HttpResponseMessage> DeleteAndEnsureUnauthorizedAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.DeleteAsync(requestUri, output);
+    response.EnsureUnauthorized();
+    return response;
+  }
+
   public static async Task<HttpResponseMessage> DeleteAsync(
     this HttpClient client, 
     string requestUri, 
