@@ -23,8 +23,8 @@ public static partial class HttpClientDeleteExtensionMethods
   }
 
   public static async Task<HttpResponseMessage> DeleteAndEnsureNotFoundAsync(
-    this HttpClient client, 
-    string requestUri, 
+    this HttpClient client,
+    string requestUri,
     ITestOutputHelper output = null)
   {
     var response = await client.DeleteAsync(requestUri, output);
@@ -33,8 +33,8 @@ public static partial class HttpClientDeleteExtensionMethods
   }
 
   public static async Task<HttpResponseMessage> DeleteAndEnsureNoContentAsync(
-    this HttpClient client, 
-    string requestUri, 
+    this HttpClient client,
+    string requestUri,
     ITestOutputHelper output = null)
   {
     var response = await client.DeleteAsync(requestUri, output);
@@ -72,9 +72,19 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
+  public static async Task<HttpResponseMessage> DeleteAndEnsureBadRequestAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.DeleteAsync(requestUri, output);
+    response.EnsureBadRequest();
+    return response;
+  }
+
   public static async Task<HttpResponseMessage> DeleteAsync(
-    this HttpClient client, 
-    string requestUri, 
+    this HttpClient client,
+    string requestUri,
     ITestOutputHelper output)
   {
     output?.WriteLine($"Requesting with DELETE {requestUri}");

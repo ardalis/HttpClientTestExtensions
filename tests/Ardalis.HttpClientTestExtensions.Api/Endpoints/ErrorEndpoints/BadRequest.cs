@@ -8,7 +8,8 @@ public class BadRequest : EndpointBaseSync
   .WithResult<BadRequestResult>
     
 {
-  [HttpGet("/badrequest")]
+  [Route("/badrequest")]
+  [AcceptVerbs("GET", "DELETE")]
   public override BadRequestResult Handle()
   {
     return BadRequest();

@@ -73,4 +73,10 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   {
     _ = await _client.DeleteAndEnsureForbiddenAsync("/forbid", _outputHelper);
   }
+
+  [Fact]
+  public async Task DeleteAndEnsureBadRequestAsync()
+  {
+    _ = await _client.DeleteAndEnsureBadRequestAsync("/badrequest", _outputHelper);
+  }
 }
