@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit.Abstractions;
 
 namespace Ardalis.HttpClientTestExtensions;
 
@@ -35,6 +37,21 @@ public static class HttpResponseMessageExtensionMethods
     {
       ThrowHelper(HttpStatusCode.Forbidden, response.StatusCode);
     }
+  }
+
+  public static async Task<string> EnsureContainsAsync(
+    this HttpResponseMessage response, 
+    string substring, 
+    ITestOutputHelper output = null)
+  {
+    var responseString = await response.Content.ReadAsStringAsync();
+    output?.WriteLine($"Ensuring substring \"{substring}\" in response \"{responseString}\"");
+    if (!responseString.Contains(substring))
+    {
+      throw new HttpRequestException($"Expected substring \"{substring}\" not found in response \"{responseString}\"");
+    };
+
+    return responseString;
   }
 
   private static HttpRequestException ThrowHelper(HttpStatusCode expectedStatusCode, HttpStatusCode actualStatusCode)
