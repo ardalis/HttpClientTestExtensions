@@ -12,8 +12,7 @@ public static partial class HttpClientGetExtensionMethods
     string requestUri,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with GET {requestUri}");
-    var response = await client.GetAsync(requestUri);
+    var response = await client.GetAsync(requestUri, output);
     response.EnsureSuccessStatusCode();
     var stringResponse = await response.Content.ReadAsStringAsync();
     output?.WriteLine($"Response: {stringResponse}");
@@ -28,8 +27,7 @@ public static partial class HttpClientGetExtensionMethods
     string requestUri,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with GET {requestUri}");
-    var response = await client.GetAsync(requestUri);
+    var response = await client.GetAsync(requestUri, output);
     response.EnsureNotFound();
     return response;
   }
@@ -39,8 +37,7 @@ public static partial class HttpClientGetExtensionMethods
     string requestUri,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with GET {requestUri}");
-    var response = await client.GetAsync(requestUri);
+    var response = await client.GetAsync(requestUri, output);
     return await response.Content.ReadAsStringAsync();
   }
 
@@ -50,8 +47,7 @@ public static partial class HttpClientGetExtensionMethods
     string substring,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with GET {requestUri}");
-    var response = await client.GetAsync(requestUri);
+    var response = await client.GetAsync(requestUri, output);
     return await response.EnsureContainsAsync(substring);
   }
 
@@ -60,8 +56,7 @@ public static partial class HttpClientGetExtensionMethods
     string requestUri,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with GET {requestUri}");
-    var response = await client.GetAsync(requestUri);
+    var response = await client.GetAsync(requestUri, output);
     response.EnsureUnauthorized();
     return response;
   }
@@ -71,9 +66,27 @@ public static partial class HttpClientGetExtensionMethods
     string requestUri,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with GET {requestUri}");
-    var response = await client.GetAsync(requestUri);
+    var response = await client.GetAsync(requestUri, output);
     response.EnsureForbidden();
     return response;
+  }
+
+  public static async Task<HttpResponseMessage> GetAndEnsureBadRequestAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.GetAsync(requestUri, output);
+    response.EnsureBadRequest();
+    return response;
+  }
+
+  public static async Task<HttpResponseMessage> GetAsync(
+    this HttpClient client, 
+    string requestUri, 
+    ITestOutputHelper output)
+  {
+    output?.WriteLine($"Requesting with GET {requestUri}");
+    return await client.GetAsync(requestUri);
   }
 }

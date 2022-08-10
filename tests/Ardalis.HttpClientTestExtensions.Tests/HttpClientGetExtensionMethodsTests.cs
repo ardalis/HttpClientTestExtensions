@@ -72,4 +72,10 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   {
     _ = await _client.GetAndEnsureForbiddenAsync("/forbid", _outputHelper);
   }
+
+  [Fact]
+  public async Task GetAndEnsureBadRequestAsync()
+  {
+    _ = await _client.GetAndEnsureBadRequestAsync("/badrequest", _outputHelper);
+  }
 }
