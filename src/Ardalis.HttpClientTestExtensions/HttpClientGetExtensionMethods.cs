@@ -35,4 +35,17 @@ public static partial class HttpClientGetExtensionMethods
     var response = await client.GetAsync(requestUri);
     return await response.Content.ReadAsStringAsync();
   }
+
+  public static async Task<string> GetAndEnsureSubstringAsync(this HttpClient client, string requestUri, string substring, ITestOutputHelper output = null)
+  {
+    var responseString = await client.GetAndReturnStringAsync(requestUri, output);
+    output?.WriteLine($"Ensuring substring \"{substring}\" in response \"{responseString}\"");
+    if (!responseString.Contains(substring))
+    {
+      output?.WriteLine($"Throwing exception because expected substring \"{substring}\" not found in response \"{responseString}\"");
+      throw new HttpRequestException($"Expected substring \"{substring}\" not found in response \"{responseString}\"");
+    };
+
+    return responseString;
+  }
 }
