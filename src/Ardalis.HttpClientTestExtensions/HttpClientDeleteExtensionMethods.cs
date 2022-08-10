@@ -62,6 +62,16 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
+  public static async Task<HttpResponseMessage> DeleteAndEnsureForbiddenAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.DeleteAsync(requestUri, output);
+    response.EnsureForbidden();
+    return response;
+  }
+
   public static async Task<HttpResponseMessage> DeleteAsync(
     this HttpClient client, 
     string requestUri, 

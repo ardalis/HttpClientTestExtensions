@@ -67,4 +67,10 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   {
     _ = await _client.DeleteAndEnsureUnauthorizedAsync("/unauthorized", _outputHelper);
   }
+
+  [Fact]
+  public async Task DeleteAndEnsureForbiddenAsync()
+  {
+    _ = await _client.DeleteAndEnsureForbiddenAsync("/forbid", _outputHelper);
+  }
 }
