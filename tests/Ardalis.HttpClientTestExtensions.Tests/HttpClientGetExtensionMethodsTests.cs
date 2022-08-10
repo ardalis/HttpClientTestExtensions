@@ -51,7 +51,7 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   public async Task GetAndEnsureSubstringAsync_With_Mathcing_Substring()
   {
     var expectedJson = "{\"id\":\"USA\",\"name\":\"USA\"}";
-    var response = await _client.GetAndEnsureSubstringAsync("/countries/USA", "\"USA\",\"name\":", _outputHelper);
+    var response = await _client.GetAndEnsureSubstringAsync("/countries/USA", "USA", _outputHelper);
 
     response.ShouldBe(expectedJson);
   }
