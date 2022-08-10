@@ -4,8 +4,8 @@ using Ardalis.ApiEndpoints;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Ardalis.HttpClientTestExtensions.Core.Entities;
-using Ardalis.HttpClientTestExtensions.Core.Specifications;
 using Ardalis.HttpClientTestExtensions.SharedKernel.Interfaces;
+using Ardalis.HttpClientTestExtensions.Api.Dtos;
 
 namespace Ardalis.HttpClientTestExtensions.Api.Endpoints.CountryEndpoints;
 
@@ -13,10 +13,12 @@ public class Delete : EndpointBaseAsync
     .WithRequest<string>
     .WithActionResult<bool>
 {
+  private readonly IMapper _mapper;
   private readonly IRepository<Country> _repository;
 
-  public Delete(IRepository<Country> repository)
+  public Delete(IMapper mapper, IRepository<Country> repository)
   {
+    _mapper = mapper;
     _repository = repository;
   }
 
@@ -30,6 +32,8 @@ public class Delete : EndpointBaseAsync
     }
     await _repository.DeleteAsync(entity, cancellationToken);
 
-    return Ok(true);
+    var response = _mapper.Map<CountryDto>(entity);
+
+    return Ok(response);
   }
 }

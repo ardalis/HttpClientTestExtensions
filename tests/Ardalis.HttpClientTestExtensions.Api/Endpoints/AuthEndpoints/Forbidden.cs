@@ -6,9 +6,10 @@ namespace Ardalis.HttpClientTestExtensions.Api.Endpoints.AuthEndpoints;
 public class Forbidden : EndpointBaseSync
   .WithoutRequest
   .WithResult<ForbidResult>
-    
+
 {
-  [HttpGet("/forbid")]
+  [Route("/forbid")]
+  [AcceptVerbs("GET", "DELETE")]
   public override ForbidResult Handle()
   {
     return Forbid();
