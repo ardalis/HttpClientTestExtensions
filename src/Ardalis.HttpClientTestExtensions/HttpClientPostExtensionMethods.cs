@@ -7,6 +7,14 @@ namespace Ardalis.HttpClientTestExtensions;
 
 public static partial class HttpClientPostExtensionMethods
 {
+  /// <summary>
+  /// Makes a POST request to a requestUri and deserializes the response to a T object
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The deserialized response object</returns>
   public static async Task<T> PostAndDeserializeAsync<T>(
     this HttpClient client,
     string requestUri,
@@ -80,6 +88,15 @@ public static partial class HttpClientPostExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Makes a POST request to a requestUri and ensures the response contains a substring
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="substring"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The response message</returns>
   public static async Task<string> PostAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,
@@ -91,6 +108,14 @@ public static partial class HttpClientPostExtensionMethods
     return await response.EnsureContainsAsync(substring);
   }
 
+  /// <summary>
+  /// Ensures a POST to a requestUri returns a 400 Bad Request response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> PostAndEnsureBadRequestAsync(
     this HttpClient client,
     string requestUri,
@@ -102,7 +127,7 @@ public static partial class HttpClientPostExtensionMethods
     return response;
   }
 
-  public static async Task<HttpResponseMessage> PostAsync(
+  private static async Task<HttpResponseMessage> PostAsync(
     this HttpClient client,
     string requestUri,
     HttpContent content,
