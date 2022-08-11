@@ -63,7 +63,7 @@ public static class HttpResponseMessageExtensionMethods
   /// <param name="response"></param>
   /// <param name="substring">The substring to look for</param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
-  /// <return></return>
+  /// <return>The response string</return>
   public static async Task<string> EnsureContainsAsync(
     this HttpResponseMessage response,
     string substring,
@@ -79,7 +79,13 @@ public static class HttpResponseMessageExtensionMethods
     return responseString;
   }
 
-  private static void Ensure(this HttpResponseMessage response, HttpStatusCode expected)
+  /// <summary>
+  /// Ensures a response has a given status code
+  /// </summary>
+  /// <param name="response"></param>
+  /// <param name="expected">The status code to expect</param>
+  /// <return></return>
+  public static void Ensure(this HttpResponseMessage response, HttpStatusCode expected)
   {
     if (response.StatusCode != expected)
     {

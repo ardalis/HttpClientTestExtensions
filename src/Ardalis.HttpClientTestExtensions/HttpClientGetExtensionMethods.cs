@@ -69,7 +69,7 @@ public static partial class HttpClientGetExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="substring">The substring to look for in the response string</param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
-  /// <returns>The response message</returns>
+  /// <returns>The response string</returns>
   public static async Task<string> GetAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,
