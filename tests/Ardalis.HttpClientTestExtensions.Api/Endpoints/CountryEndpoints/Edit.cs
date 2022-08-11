@@ -5,7 +5,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Ardalis.HttpClientTestExtensions.Api.Dtos;
 using Ardalis.HttpClientTestExtensions.Core.Entities;
-using Ardalis.HttpClientTestExtensions.Core.Specifications;
 using Ardalis.HttpClientTestExtensions.SharedKernel.Interfaces;
 
 namespace Ardalis.HttpClientTestExtensions.Api.Endpoints.CountryEndpoints;
@@ -33,7 +32,7 @@ public class Edit : EndpointBaseAsync
     {
       return NotFound();
     }
-    var entityToSave = _mapper.Map<Country>(countryDto);
+    var entityToSave = _mapper.Map(countryDto, entity);
     await _repository.UpdateAsync(entityToSave, cancellationToken);
 
     var response = _mapper.Map<CountryDto>(entityToSave);

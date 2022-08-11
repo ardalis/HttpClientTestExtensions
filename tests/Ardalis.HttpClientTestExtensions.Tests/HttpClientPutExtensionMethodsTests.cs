@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Ardalis.HttpClientTestExtensions.Api;
 using Ardalis.HttpClientTestExtensions.Api.Dtos;
 using Shouldly;
 using Xunit;
@@ -22,7 +23,23 @@ public class HttpClientPutExtensionMethodsTests : IClassFixture<CustomWebApplica
   }
 
   [Fact]
-  public async Task PostAndEnsureNotFoundTestAsync()
+  public async Task PutAndDeserializeTestAsync()
+  {
+    var expectedId = SeedData.TestCountry1.Id;
+    var expectedName = "United States of America";
+    // var dto = await _client.GetAndDeserializeAsync<CountryDto>("/countries/USA", _outputHelper);
+    // dto.Name = expectedName;
+    var dto = new CountryDto { Id = expectedId, Name = expectedName };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+    var response = await _client.PutAndDeserializeAsync<CountryDto>("/countries", content, _outputHelper);
+
+    response.Id.ShouldBe(expectedId);
+    response.Name.ShouldBe(expectedName);
+  }
+
+  [Fact]
+  public async Task PutAndEnsureNotFoundTestAsync()
   {
     var dto = new CountryDto();
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
