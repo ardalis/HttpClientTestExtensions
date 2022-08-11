@@ -96,7 +96,7 @@ public static partial class HttpClientPostExtensionMethods
   /// <param name="content"></param>
   /// <param name="substring"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
-  /// <returns>The response message</returns>
+  /// <returns>The response string</returns>
   public static async Task<string> PostAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,

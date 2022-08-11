@@ -84,18 +84,34 @@ public async Task ReturnsNotFoundGivenInvalidAuthorId()
 
 All methods are extensions on `HttpClient`; the following samples assume `client` is an `HttpClient`. All methods take an optional `ITestOutputHelper`, which is an xUnit type.
 
+
+### [GET](src\Ardalis.HttpClientTestExtensions\HttpClientGetExtensionMethods.cs)
 ```csharp
 // GET and return an object T
 AuthorDto result = await client.GetAndDeserializeAsync("/authors/1", _testOutputHelper);
 
-// GET and assert a 404 is returned
-await client.GetAndEnsureNotFoundAsync("/authors/-1");
-
 // GET and return response as a string
 string result = client.GetAndReturnStringAsync("/healthcheck");
 
-// POST and assert a 404 is returned
+// GET and ensure response contains a substring
+string result = client.GetAndEnsureSubstringAsync("/healthcheck", "OMG!");
 
+// GET and assert a 400 is returned
+await client.GetAndEnsureBadRequestAsync("/authors?page");
+
+// GET and assert a 401 is returned
+await client.GetAndEnsureUnauthorizedAsync("/authors/1");
+
+// GET and assert a 403 is returned
+await client.GetAndEnsureForbiddenAsync("/authors/1");
+
+// GET and assert a 404 is returned
+await client.GetAndEnsureNotFoundAsync("/authors/-1");
+```
+
+### [POST](src\Ardalis.HttpClientTestExtensions\HttpClientPostExtensionMethods.cs)
+```csharp
+// POST and assert a 404 is returned
 var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
 await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
@@ -105,4 +121,3 @@ await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
 - For now this is coupled with xUnit but if there is interest it could be split so the ITestOutputHelper dependency is removed/optional/swappable
 - Additional helpers for other verbs are planned
 - This is using System.Text.Json with default camelCase options that I've found most useful in my projects. This could be made extensible somehow as well.
-

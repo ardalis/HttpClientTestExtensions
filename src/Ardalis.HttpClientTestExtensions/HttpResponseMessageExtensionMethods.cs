@@ -63,7 +63,7 @@ public static class HttpResponseMessageExtensionMethods
   /// <param name="response"></param>
   /// <param name="substring">The substring to look for</param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
-  /// <return></return>
+  /// <return>The response string</return>
   public static async Task<string> EnsureContainsAsync(
     this HttpResponseMessage response,
     string substring,
