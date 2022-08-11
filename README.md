@@ -132,6 +132,31 @@ await client.PostAndEnsureForbiddenAsync("/authors", content);
 await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
+### [PUT](src\Ardalis.HttpClientTestExtensions\HttpClientPutExtensionMethods.cs)
+```csharp
+var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+// PUT and return an object T
+AuthorDto result = await client.PutAndDeserializeAsync("/authors/1", content);
+
+// PUT and ensure response contains a substring
+string result = client.PutAndEnsureSubstringAsync("/authors/1", content, "OMG!");
+
+// PUT and assert a 400 is returned
+await client.PutAndEnsureBadRequestAsync("/authors/1", "banana");
+
+// PUT and assert a 401 is returned
+await client.PutAndEnsureUnauthorizedAsync("/authors/1", content);
+
+// PUT and assert a 403 is returned
+await client.PutAndEnsureForbiddenAsync("/authors/1", content);
+
+// PUT and assert a 404 is returned
+await client.PutAndEnsureNotFoundAsync("/wrongendpoint", content)
+```
+
+
+
 ## Notes
 
 - For now this is coupled with xUnit but if there is interest it could be split so the ITestOutputHelper dependency is removed/optional/swappable
