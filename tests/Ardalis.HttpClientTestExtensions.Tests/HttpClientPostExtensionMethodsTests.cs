@@ -63,4 +63,12 @@ public class HttpClientPostExtensionMethodsTests : IClassFixture<CustomWebApplic
 
     await Assert.ThrowsAsync<HttpRequestException>(() => _client.PostAndEnsureSubstringAsync("/countries", content, "banana", _outputHelper));
   }
+
+  [Fact]
+  public async Task PostAndEnsureBadRequestAsync()
+  {
+    var dto = new CountryDto { Id = "ESP", Name = "Spain" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+    _ = await _client.PostAndEnsureBadRequestAsync("/badrequest", content, _outputHelper);
+  }
 }

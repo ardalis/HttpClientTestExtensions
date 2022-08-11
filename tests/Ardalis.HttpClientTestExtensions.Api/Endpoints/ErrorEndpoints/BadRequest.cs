@@ -9,7 +9,7 @@ public class BadRequest : EndpointBaseSync
     
 {
   [Route("/badrequest")]
-  [AcceptVerbs("GET", "DELETE", "PUT")]
+  [AcceptVerbs("GET", "DELETE", "PUT", "POST")]
   public override BadRequestResult Handle()
   {
     return BadRequest();

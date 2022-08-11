@@ -91,6 +91,17 @@ public static partial class HttpClientPostExtensionMethods
     return await response.EnsureContainsAsync(substring);
   }
 
+  public static async Task<HttpResponseMessage> PostAndEnsureBadRequestAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PostAsync(requestUri, content, output);
+    response.EnsureBadRequest();
+    return response;
+  }
+
   public static async Task<HttpResponseMessage> PostAsync(
     this HttpClient client,
     string requestUri,
