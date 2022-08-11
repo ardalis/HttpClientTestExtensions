@@ -111,8 +111,24 @@ await client.GetAndEnsureNotFoundAsync("/authors/-1");
 
 ### [POST](src\Ardalis.HttpClientTestExtensions\HttpClientPostExtensionMethods.cs)
 ```csharp
-// POST and assert a 404 is returned
 var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+// POST and return an object T
+AuthorDto result = await client.PostAndDeserializeAsync("/authors", content);
+
+// POST and ensure response contains a substring
+string result = client.PostAndEnsureSubstringAsync("/authors", content, "OMG!");
+
+// POST and assert a 400 is returned
+await client.PostAndEnsureBadRequestAsync("/authors", "banana");
+
+// POST and assert a 401 is returned
+await client.PostAndEnsureUnauthorizedAsync("/authors", content);
+
+// POST and assert a 403 is returned
+await client.PostAndEnsureForbiddenAsync("/authors", content);
+
+// POST and assert a 404 is returned
 await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
