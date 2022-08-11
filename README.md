@@ -82,10 +82,12 @@ public async Task ReturnsNotFoundGivenInvalidAuthorId()
 
 ## List of Included Helper Methods
 
-All methods are extensions on `HttpClient`; the following samples assume `client` is an `HttpClient`. All methods take an optional `ITestOutputHelper`, which is an xUnit type.
+### HttpClient
 
+All of these methods are extensions on `HttpClient`; the following samples assume `client` is an `HttpClient`. All methods take an optional `ITestOutputHelper`, which is an xUnit type.
 
-### [GET](src\Ardalis.HttpClientTestExtensions\HttpClientGetExtensionMethods.cs)
+#### [GET](src\Ardalis.HttpClientTestExtensions\HttpClientGetExtensionMethods.cs)
+
 ```csharp
 // GET and return an object T
 AuthorDto result = await client.GetAndDeserializeAsync("/authors/1", _testOutputHelper);
@@ -109,7 +111,8 @@ await client.GetAndEnsureForbiddenAsync("/authors/1");
 await client.GetAndEnsureNotFoundAsync("/authors/-1");
 ```
 
-### [POST](src\Ardalis.HttpClientTestExtensions\HttpClientPostExtensionMethods.cs)
+#### [POST](src\Ardalis.HttpClientTestExtensions\HttpClientPostExtensionMethods.cs)
+
 ```csharp
 var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
 
@@ -132,7 +135,8 @@ await client.PostAndEnsureForbiddenAsync("/authors", content);
 await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
-### [PUT](src\Ardalis.HttpClientTestExtensions\HttpClientPutExtensionMethods.cs)
+#### [PUT](src\Ardalis.HttpClientTestExtensions\HttpClientPutExtensionMethods.cs)
+
 ```csharp
 var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
 
@@ -155,13 +159,17 @@ await client.PutAndEnsureForbiddenAsync("/authors/1", content);
 await client.PutAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
-### [DELETE](src\Ardalis.HttpClientTestExtensions\HttpClientDeleteExtensionMethods.cs)
+#### [DELETE](src\Ardalis.HttpClientTestExtensions\HttpClientDeleteExtensionMethods.cs)
+
 ```csharp
 // DELETE and return an object T
 AuthorDto result = await client.DeleteAndDeserializeAsync("/authors/1");
 
 // DELETE and ensure response contains a substring
 string result = client.DeleteAndEnsureSubstringAsync("/authors/1", "OMG!");
+
+// DELETE and assert a 204 is returned
+await client.DeleteAndEnsureNoContentAsync("/authors/1");
 
 // DELETE and assert a 400 is returned
 await client.DeleteAndEnsureBadRequestAsync("/authors/1");
@@ -174,6 +182,35 @@ await client.DeleteAndEnsureForbiddenAsync("/authors/1");
 
 // DELETE and assert a 404 is returned
 await client.DeleteAndEnsureNotFoundAsync("/wrongendpoint");
+```
+
+### [HttpResponseMessage](src\Ardalis.HttpClientTestExtensions\HttpResponseMessageExtensionMethods.cs)
+
+```csharp
+
+All of these methods are extensions on `HttpResponseMessage`.
+
+```csharp
+// Assert a response has a status code of 204
+response.EnsureNoContent();
+
+// Assert a response has a status code of 400
+response.EnsureBadRequest();
+
+// Assert a response has a status code of 401
+response.EnsureUnauthorized();
+
+// Assert a response has a status code of 403
+response.EnsureForbidden();
+
+// Assert a response has a status code of 404
+response.EnsureNotFound();
+
+// Assert a response has a given status code
+response.Ensure(HttpStatusCode.Created);
+
+// Assert a response contains a substing
+response.EnsureContainsAsync("OMG!", _testOutputHelper);
 ```
 
 ## Notes
