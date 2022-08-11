@@ -155,7 +155,26 @@ await client.PutAndEnsureForbiddenAsync("/authors/1", content);
 await client.PutAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
+### [DELETE](src\Ardalis.HttpClientTestExtensions\HttpClientDeleteExtensionMethods.cs)
+```csharp
+// DELETE and return an object T
+AuthorDto result = await client.DeleteAndDeserializeAsync("/authors/1");
 
+// DELETE and ensure response contains a substring
+string result = client.DeleteAndEnsureSubstringAsync("/authors/1", "OMG!");
+
+// DELETE and assert a 400 is returned
+await client.DeleteAndEnsureBadRequestAsync("/authors/1");
+
+// DELETE and assert a 401 is returned
+await client.DeleteAndEnsureUnauthorizedAsync("/authors/1");
+
+// DELETE and assert a 403 is returned
+await client.DeleteAndEnsureForbiddenAsync("/authors/1");
+
+// DELETE and assert a 404 is returned
+await client.DeleteAndEnsureNotFoundAsync("/wrongendpoint");
+```
 
 ## Notes
 
