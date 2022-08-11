@@ -42,4 +42,25 @@ public class HttpClientPostExtensionMethodsTests : IClassFixture<CustomWebApplic
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
     _ = await _client.PostAndEnsureNotFoundAsync("/wrongendpoint", content, _outputHelper);
   }
+
+  [Fact]
+  public async Task PostAndEnsureSubstringAsync_With_Matching_Substring()
+  {
+    var expectedJson = "{\"id\":\"FR\",\"name\":\"France\"}";
+    var dto = new CountryDto { Id = "FR", Name = "France" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+    var response = await _client.PostAndEnsureSubstringAsync("/countries", content, "France", _outputHelper);
+
+    response.ShouldBe(expectedJson);
+  }
+
+  [Fact]
+  public async Task PostAndEnsureSubstringAsync_Without_Matching_Substring()
+  {
+    var dto = new CountryDto { Id = "ESP", Name = "Spain" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+    await Assert.ThrowsAsync<HttpRequestException>(() => _client.PostAndEnsureSubstringAsync("/countries", content, "banana", _outputHelper));
+  }
 }

@@ -80,6 +80,17 @@ public static partial class HttpClientPostExtensionMethods
     return response;
   }
 
+  public static async Task<string> PostAndEnsureSubstringAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    string substring,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PostAsync(requestUri, content, output);
+    return await response.EnsureContainsAsync(substring);
+  }
+
   public static async Task<HttpResponseMessage> PostAsync(
     this HttpClient client,
     string requestUri,
