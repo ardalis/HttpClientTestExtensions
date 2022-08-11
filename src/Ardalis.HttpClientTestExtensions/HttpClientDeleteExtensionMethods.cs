@@ -7,6 +7,13 @@ namespace Ardalis.HttpClientTestExtensions;
 
 public static partial class HttpClientDeleteExtensionMethods
 {
+  /// <summary>
+  /// Makes a DELETE request to a requestUri and deserializes the response to a T object
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The deserialized response object</returns>
   public static async Task<T> DeleteAndDeserializeAsync<T>(
     this HttpClient client,
     string requestUri,
@@ -22,6 +29,13 @@ public static partial class HttpClientDeleteExtensionMethods
     return result;
   }
 
+  /// <summary>
+  /// Ensures a DELETE to a requestUri returns a 404 Not Found response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> DeleteAndEnsureNotFoundAsync(
     this HttpClient client,
     string requestUri,
@@ -32,6 +46,13 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a DELETE to a requestUri returns a 204 No Content response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> DeleteAndEnsureNoContentAsync(
     this HttpClient client,
     string requestUri,
@@ -42,6 +63,14 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Makes a DELETE request to a requestUri and ensures the response contains a substring
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="substring">The substring to look for in the response string</param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The response message</returns>
   public static async Task<string> DeleteAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,
@@ -52,6 +81,13 @@ public static partial class HttpClientDeleteExtensionMethods
     return await response.EnsureContainsAsync(substring);
   }
 
+  /// <summary>
+  /// Ensures a DELETE to a requestUri returns a 401 Unauthorized response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> DeleteAndEnsureUnauthorizedAsync(
     this HttpClient client,
     string requestUri,
@@ -62,6 +98,13 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a DELETE to a requestUri returns a 403 Forbidden response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> DeleteAndEnsureForbiddenAsync(
     this HttpClient client,
     string requestUri,
@@ -72,6 +115,13 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a DELETE to a requestUri returns a 400 Bad Request response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> DeleteAndEnsureBadRequestAsync(
     this HttpClient client,
     string requestUri,
@@ -82,7 +132,7 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
-  public static async Task<HttpResponseMessage> DeleteAsync(
+  private static async Task<HttpResponseMessage> DeleteAsync(
     this HttpClient client,
     string requestUri,
     ITestOutputHelper output)

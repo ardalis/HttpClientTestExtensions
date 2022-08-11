@@ -7,6 +7,13 @@ namespace Ardalis.HttpClientTestExtensions;
 
 public static partial class HttpClientGetExtensionMethods
 {
+  /// <summary>
+  /// Makes a GET request to a requestUri and deserializes the response to a T object
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The deserialized response object</returns>
   public static async Task<T> GetAndDeserializeAsync<T>(
     this HttpClient client,
     string requestUri,
@@ -22,6 +29,13 @@ public static partial class HttpClientGetExtensionMethods
     return result;
   }
 
+  /// <summary>
+  /// Ensures a GET to a requestUri returns a 404 Not Found response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> GetAndEnsureNotFoundAsync(
     this HttpClient client,
     string requestUri,
@@ -32,6 +46,13 @@ public static partial class HttpClientGetExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Makes a GET request to a requestUri and returns the response string
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The response string</returns>
   public static async Task<string> GetAndReturnStringAsync(
     this HttpClient client,
     string requestUri,
@@ -41,6 +62,14 @@ public static partial class HttpClientGetExtensionMethods
     return await response.Content.ReadAsStringAsync();
   }
 
+  /// <summary>
+  /// Makes a GET request to a requestUri and ensures the response contains a substring
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="substring">The substring to look for in the response string</param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The response message</returns>
   public static async Task<string> GetAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,
@@ -51,6 +80,13 @@ public static partial class HttpClientGetExtensionMethods
     return await response.EnsureContainsAsync(substring);
   }
 
+  /// <summary>
+  /// Ensures a GET to a requestUri returns a 401 Unauthorized response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> GetAndEnsureUnauthorizedAsync(
     this HttpClient client,
     string requestUri,
@@ -61,6 +97,13 @@ public static partial class HttpClientGetExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a GET to a requestUri returns a 403 Forbidden response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> GetAndEnsureForbiddenAsync(
     this HttpClient client,
     string requestUri,
@@ -71,6 +114,13 @@ public static partial class HttpClientGetExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a GET to a requestUri returns a 400 Bad Request response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> GetAndEnsureBadRequestAsync(
     this HttpClient client,
     string requestUri,
@@ -81,7 +131,7 @@ public static partial class HttpClientGetExtensionMethods
     return response;
   }
 
-  public static async Task<HttpResponseMessage> GetAsync(
+  private static async Task<HttpResponseMessage> GetAsync(
     this HttpClient client, 
     string requestUri, 
     ITestOutputHelper output)

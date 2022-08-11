@@ -7,6 +7,14 @@ namespace Ardalis.HttpClientTestExtensions;
 
 public static partial class HttpClientPutExtensionMethods
 {
+  /// <summary>
+  /// Makes a PUT request to a requestUri and deserializes the response to a T object
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The deserialized response object</returns>
   public static async Task<T> PutAndDeserializeAsync<T>(
     this HttpClient client,
     string requestUri,
@@ -25,7 +33,7 @@ public static partial class HttpClientPutExtensionMethods
 
 
   /// <summary>
-  /// Ensures a PUT to a requestUri returns a 401 Unauthorized response status code
+  /// Ensures a PUT to a requestUri returns a 404 Not Found response status code
   /// </summary>
   /// <param name="client"></param>
   /// <param name="requestUri"></param>
@@ -61,7 +69,7 @@ public static partial class HttpClientPutExtensionMethods
   }
 
   /// <summary>
-  /// Ensures a PUT to a requestUri returns a 401 Unauthorized response status code
+  /// Ensures a PUT to a requestUri returns a 403 Forbidden response status code
   /// </summary>
   /// <param name="client"></param>
   /// <param name="requestUri"></param>
@@ -78,6 +86,15 @@ public static partial class HttpClientPutExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Makes a PUT request to a requestUri and ensures the response contains a substring
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="substring"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns>The response message</returns>
   public static async Task<string> PutAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,
@@ -89,6 +106,14 @@ public static partial class HttpClientPutExtensionMethods
     return await response.EnsureContainsAsync(substring);
   }
 
+  /// <summary>
+  /// Ensures a PUT to a requestUri returns a 400 Bad Request response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
   public static async Task<HttpResponseMessage> PutAndEnsureBadRequestAsync(
     this HttpClient client,
     string requestUri,

@@ -7,31 +7,63 @@ namespace Ardalis.HttpClientTestExtensions;
 
 public static class HttpResponseMessageExtensionMethods
 {
+  /// <summary>
+  /// Ensures a response has a status code 404 Not Found
+  /// </summary>
+  /// <param name="response"></param>
+  /// <return></return>
   public static void EnsureNotFound(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.NotFound);
   }
 
+  /// <summary>
+  /// Ensures a response has a status code 204 No Content
+  /// </summary>
+  /// <param name="response"></param>
+  /// <return></return>
   public static void EnsureNoContent(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.NoContent);
   }
 
+  /// <summary>
+  /// Ensures a response has a status code 401 Unauthorized
+  /// </summary>
+  /// <param name="response"></param>
+  /// <return></return>
   public static void EnsureUnauthorized(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.Unauthorized);
   }
 
+  /// <summary>
+  /// Ensures a response has a status code 403 Forbidden
+  /// </summary>
+  /// <param name="response"></param>
+  /// <return></return>
   public static void EnsureForbidden(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.Forbidden);
   }
 
+  /// <summary>
+  /// Ensures a response has a status code 400 Bad Request
+  /// </summary>
+  /// <param name="response"></param>
+  /// <return></return>
   public static void EnsureBadRequest(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.BadRequest);
   }
 
+  /// <summary>
+  /// Ensures a response contains a substring
+  /// </summary>
+  /// <param name="response"></param>
+  /// <param name="substring">The substring to look for</param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <return></return>
   public static async Task<string> EnsureContainsAsync(
     this HttpResponseMessage response,
     string substring,
