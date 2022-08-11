@@ -27,8 +27,6 @@ public class HttpClientPutExtensionMethodsTests : IClassFixture<CustomWebApplica
   {
     var expectedId = SeedData.TestCountry1.Id;
     var expectedName = "United States of America";
-    // var dto = await _client.GetAndDeserializeAsync<CountryDto>("/countries/USA", _outputHelper);
-    // dto.Name = expectedName;
     var dto = new CountryDto { Id = expectedId, Name = expectedName };
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
 
@@ -44,5 +42,26 @@ public class HttpClientPutExtensionMethodsTests : IClassFixture<CustomWebApplica
     var dto = new CountryDto();
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
     _ = await _client.PutAndEnsureNotFoundAsync("/wrongendpoint", content, _outputHelper);
+  }
+
+  [Fact]
+  public async Task PuAndEnsureSubstringAsync_With_Matching_Substring()
+  {
+    var expectedJson = "{\"id\":\"USA\",\"name\":\"'Merica\"}";
+    var dto = new CountryDto { Id = SeedData.TestCountry1.Id, Name = "'Merica" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+    var response = await _client.PutAndEnsureSubstringAsync("/countries", content, "erica", _outputHelper);
+
+    response.ShouldBe(expectedJson);
+  }
+
+  [Fact]
+  public async Task PutAndEnsureSubstringAsync_Without_Matching_Substring()
+  {
+    var dto = new CountryDto { Id = SeedData.TestCountry1.Id, Name = "'Merica" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+    await Assert.ThrowsAsync<HttpRequestException>(() => _client.PutAndEnsureSubstringAsync("/countries", content, "banana", _outputHelper));
   }
 }

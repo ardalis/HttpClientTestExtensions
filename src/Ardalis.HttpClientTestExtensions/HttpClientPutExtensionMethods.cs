@@ -37,8 +37,7 @@ public static partial class HttpClientPutExtensionMethods
     HttpContent content,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with PUT {requestUri}");
-    var response = await client.PutAsync(requestUri, content);
+    var response = await client.PutAsync(requestUri, content, output);
     response.EnsureNotFound();
     return response;
   }
@@ -56,8 +55,7 @@ public static partial class HttpClientPutExtensionMethods
   HttpContent content,
   ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with PUT {requestUri}");
-    var response = await client.PutAsync(requestUri, content);
+    var response = await client.PutAsync(requestUri, content, output);
     response.EnsureUnauthorized();
     return response;
   }
@@ -75,10 +73,20 @@ public static partial class HttpClientPutExtensionMethods
   HttpContent content,
   ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with PUT {requestUri}");
-    var response = await client.PutAsync(requestUri, content);
+    var response = await client.PutAsync(requestUri, content, output);
     response.EnsureForbidden();
     return response;
+  }
+
+  public static async Task<string> PutAndEnsureSubstringAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    string substring,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PutAsync(requestUri, content, output);
+    return await response.EnsureContainsAsync(substring);
   }
 
   public static async Task<HttpResponseMessage> PutAsync(
