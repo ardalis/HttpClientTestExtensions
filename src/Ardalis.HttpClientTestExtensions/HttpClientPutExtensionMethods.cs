@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
 
@@ -6,6 +7,23 @@ namespace Ardalis.HttpClientTestExtensions;
 
 public static partial class HttpClientPutExtensionMethods
 {
+  public static async Task<T> PutAndDeserializeAsync<T>(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PutAsync(requestUri, content, output);
+    response.EnsureSuccessStatusCode();
+    var stringResponse = await response.Content.ReadAsStringAsync();
+    output?.WriteLine($"Response: {stringResponse}");
+    var result = JsonSerializer.Deserialize<T>(stringResponse,
+      Constants.DefaultJsonOptions);
+
+    return result;
+  }
+
+
   /// <summary>
   /// Ensures a PUT to a requestUri returns a 401 Unauthorized response status code
   /// </summary>
@@ -19,8 +37,7 @@ public static partial class HttpClientPutExtensionMethods
     HttpContent content,
     ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with PUT {requestUri}");
-    var response = await client.PutAsync(requestUri, content);
+    var response = await client.PutAsync(requestUri, content, output);
     response.EnsureNotFound();
     return response;
   }
@@ -38,8 +55,7 @@ public static partial class HttpClientPutExtensionMethods
   HttpContent content,
   ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with PUT {requestUri}");
-    var response = await client.PutAsync(requestUri, content);
+    var response = await client.PutAsync(requestUri, content, output);
     response.EnsureUnauthorized();
     return response;
   }
@@ -57,10 +73,41 @@ public static partial class HttpClientPutExtensionMethods
   HttpContent content,
   ITestOutputHelper output = null)
   {
-    output?.WriteLine($"Requesting with PUT {requestUri}");
-    var response = await client.PutAsync(requestUri, content);
+    var response = await client.PutAsync(requestUri, content, output);
     response.EnsureForbidden();
     return response;
+  }
+
+  public static async Task<string> PutAndEnsureSubstringAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    string substring,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PutAsync(requestUri, content, output);
+    return await response.EnsureContainsAsync(substring);
+  }
+
+  public static async Task<HttpResponseMessage> PutAndEnsureBadRequestAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PutAsync(requestUri, content, output);
+    response.EnsureBadRequest();
+    return response;
+  }
+
+  public static async Task<HttpResponseMessage> PutAsync(
+    this HttpClient client, 
+    string requestUri,
+    HttpContent content, 
+    ITestOutputHelper output)
+  {
+    output?.WriteLine($"Requesting with PUT {requestUri}");
+    return await client.PutAsync(requestUri, content);
   }
 
 }
