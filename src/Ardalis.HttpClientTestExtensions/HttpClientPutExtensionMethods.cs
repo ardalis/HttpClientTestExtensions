@@ -89,6 +89,17 @@ public static partial class HttpClientPutExtensionMethods
     return await response.EnsureContainsAsync(substring);
   }
 
+  public static async Task<HttpResponseMessage> PutAndEnsureBadRequestAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PutAsync(requestUri, content, output);
+    response.EnsureBadRequest();
+    return response;
+  }
+
   public static async Task<HttpResponseMessage> PutAsync(
     this HttpClient client, 
     string requestUri,
