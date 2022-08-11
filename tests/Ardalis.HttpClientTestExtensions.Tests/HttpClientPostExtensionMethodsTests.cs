@@ -22,6 +22,20 @@ public class HttpClientPostExtensionMethodsTests : IClassFixture<CustomWebApplic
   }
 
   [Fact]
+  public async Task PostAndDeserializeTestAsync()
+  {
+    var expectedId = "CAN";
+    var expectedName = "Canada";
+    var dto = new CountryDto { Id = expectedId, Name = expectedName };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+    var response = await _client.PostAndDeserializeAsync<CountryDto>("/countries", content, _outputHelper);
+
+    response.Id.ShouldBe(expectedId);
+    response.Name.ShouldBe(expectedName);
+  }
+
+  [Fact]
   public async Task PostAndEnsureNotFoundTestAsync()
   {
     var dto = new CountryDto();
