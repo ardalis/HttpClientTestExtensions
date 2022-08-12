@@ -132,6 +132,27 @@ public static partial class HttpClientDeleteExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a DELETE to a requestUri returns a 302 Redirect response status code
+  /// and redirects to the expected redirectUri
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="redirectUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> DeleteAndRedirectAsync(
+    this HttpClient client,
+    string requestUri,
+    string redirectUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.DeleteAsync(requestUri, output);
+    client.EnsureNoAutoRedirect(output);
+    response.EnsureRedirect(redirectUri);
+    return response;
+  }
+
   private static async Task<HttpResponseMessage> DeleteAsync(
     this HttpClient client,
     string requestUri,

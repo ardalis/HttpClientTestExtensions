@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Ardalis.HttpClientTestExtensions.Api;
 using Ardalis.HttpClientTestExtensions.Api.Dtos;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
@@ -12,11 +13,13 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
 {
   private readonly HttpClient _client;
   private readonly ITestOutputHelper _outputHelper;
+  private readonly CustomWebApplicationFactory _factory;
 
   public HttpClientGetExtensionMethodsTests(CustomWebApplicationFactory factory, ITestOutputHelper outputHelper)
   {
     _client = factory.CreateClient();
     _outputHelper = outputHelper;
+    _factory = factory;
   }
 
   [Fact]
@@ -77,5 +80,12 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   public async Task GetAndEnsureBadRequestAsync()
   {
     _ = await _client.GetAndEnsureBadRequestAsync("/badrequest", _outputHelper);
+  }
+
+  [Fact]
+  public async Task GetAndRedirectAsync()
+  {
+    var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
+    _ = await client.GetAndRedirectAsync("/redirect", "/redirected", _outputHelper);
   }
 }

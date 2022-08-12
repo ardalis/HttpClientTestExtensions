@@ -98,6 +98,9 @@ string result = client.GetAndReturnStringAsync("/healthcheck");
 // GET and ensure response contains a substring
 string result = client.GetAndEnsureSubstringAsync("/healthcheck", "OMG!");
 
+// GET and assert a 302 is returned
+await client.GetAndEnsureRedirectAsync("/oldone, "/newone");
+
 // GET and assert a 400 is returned
 await client.GetAndEnsureBadRequestAsync("/authors?page");
 
@@ -122,6 +125,9 @@ AuthorDto result = await client.PostAndDeserializeAsync("/authors", content);
 // POST and ensure response contains a substring
 string result = client.PostAndEnsureSubstringAsync("/authors", content, "OMG!");
 
+// POST and assert a 302 is returned
+await client.PostAndEnsureRedirectAsync("/oldone", content, "/newone");
+
 // POST and assert a 400 is returned
 await client.PostAndEnsureBadRequestAsync("/authors", "banana");
 
@@ -145,6 +151,9 @@ AuthorDto result = await client.PutAndDeserializeAsync("/authors/1", content);
 
 // PUT and ensure response contains a substring
 string result = client.PutAndEnsureSubstringAsync("/authors/1", content, "OMG!");
+
+// PUT and assert a 302 is returned
+await client.PutAndEnsureRedirectAsync("/oldone", content, "/newone");
 
 // PUT and assert a 400 is returned
 await client.PutAndEnsureBadRequestAsync("/authors/1", "banana");
@@ -171,6 +180,9 @@ string result = client.DeleteAndEnsureSubstringAsync("/authors/1", "OMG!");
 // DELETE and assert a 204 is returned
 await client.DeleteAndEnsureNoContentAsync("/authors/1");
 
+// DELETE and assert a 302 is returned
+await client.DeleteAndEnsureRedirectAsync("/oldone", "/newone");
+
 // DELETE and assert a 400 is returned
 await client.DeleteAndEnsureBadRequestAsync("/authors/1");
 
@@ -193,6 +205,9 @@ All of these methods are extensions on `HttpResponseMessage`.
 ```csharp
 // Assert a response has a status code of 204
 response.EnsureNoContent();
+
+// Assert a response has a status code of 302
+response.EnsureRedirect("/newone");
 
 // Assert a response has a status code of 400
 response.EnsureBadRequest();

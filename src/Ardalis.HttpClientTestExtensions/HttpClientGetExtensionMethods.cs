@@ -1,7 +1,9 @@
 ﻿using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Reflection;
 using Xunit.Abstractions;
+using Microsoft.AspNetCore.Mvc.Testing.Handlers;
 
 namespace Ardalis.HttpClientTestExtensions;
 
@@ -131,9 +133,30 @@ public static partial class HttpClientGetExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a GET to a requestUri returns a 302 Redirect response status code
+  /// and redirects to the expected redirectUri
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="redirectUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> GetAndRedirectAsync(
+    this HttpClient client,
+    string requestUri,
+    string redirectUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.GetAsync(requestUri, output);
+    client.EnsureNoAutoRedirect(output);
+    response.EnsureRedirect(redirectUri);
+    return response;
+  }
+
   private static async Task<HttpResponseMessage> GetAsync(
-    this HttpClient client, 
-    string requestUri, 
+    this HttpClient client,
+    string requestUri,
     ITestOutputHelper output)
   {
     output?.WriteLine($"Requesting with GET {requestUri}");

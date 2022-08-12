@@ -125,7 +125,30 @@ public static partial class HttpClientPutExtensionMethods
     return response;
   }
 
-  public static async Task<HttpResponseMessage> PutAsync(
+  /// <summary>
+  /// Ensures a PUT to a requestUri returns a 302 Redirect response status code
+  /// and redirects to the expected redirectUri
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="redirectUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> PutAndRedirectAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    string redirectUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PutAsync(requestUri, content, output);
+    client.EnsureNoAutoRedirect(output);
+    response.EnsureRedirect(redirectUri);
+    return response;
+  }
+
+  private static async Task<HttpResponseMessage> PutAsync(
     this HttpClient client, 
     string requestUri,
     HttpContent content, 

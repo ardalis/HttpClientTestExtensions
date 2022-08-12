@@ -28,6 +28,36 @@ public static class HttpResponseMessageExtensionMethods
   }
 
   /// <summary>
+  /// Ensures a response has a status code 302 Redirect
+  /// </summary>
+  /// <param name="response"></param>
+  /// <param name="redirectUri">The expected redirect URI</param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <return></return>
+  public static void EnsureRedirect(
+    this HttpResponseMessage response,
+    string redirectUri,
+    ITestOutputHelper output = null)
+  {
+    response.Ensure(HttpStatusCode.Redirect);
+    output?.WriteLine($"Ensuring redirect to {redirectUri}");
+    if (response.Headers.Location.ToString() != redirectUri)
+    {
+      throw new HttpRequestException($"Expected redirect to {redirectUri} but received {response.Headers.Location}");
+    }
+  }
+
+  /// <summary>
+  /// Ensures a response has a status code 400 Bad Request
+  /// </summary>
+  /// <param name="response"></param>
+  /// <return></return>
+  public static void EnsureBadRequest(this HttpResponseMessage response)
+  {
+    response.Ensure(HttpStatusCode.BadRequest);
+  }
+
+  /// <summary>
   /// Ensures a response has a status code 401 Unauthorized
   /// </summary>
   /// <param name="response"></param>
@@ -45,16 +75,6 @@ public static class HttpResponseMessageExtensionMethods
   public static void EnsureForbidden(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.Forbidden);
-  }
-
-  /// <summary>
-  /// Ensures a response has a status code 400 Bad Request
-  /// </summary>
-  /// <param name="response"></param>
-  /// <return></return>
-  public static void EnsureBadRequest(this HttpResponseMessage response)
-  {
-    response.Ensure(HttpStatusCode.BadRequest);
   }
 
   /// <summary>

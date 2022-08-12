@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Ardalis.HttpClientTestExtensions.Api.Dtos;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
@@ -14,11 +15,13 @@ public class HttpClientPostExtensionMethodsTests : IClassFixture<CustomWebApplic
 {
   private readonly HttpClient _client;
   private readonly ITestOutputHelper _outputHelper;
+  private readonly CustomWebApplicationFactory _factory;
 
   public HttpClientPostExtensionMethodsTests(CustomWebApplicationFactory factory, ITestOutputHelper outputHelper)
   {
     _client = factory.CreateClient();
     _outputHelper = outputHelper;
+    _factory = factory;
   }
 
   [Fact]
@@ -70,5 +73,14 @@ public class HttpClientPostExtensionMethodsTests : IClassFixture<CustomWebApplic
     var dto = new CountryDto { Id = "ESP", Name = "Spain" };
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
     _ = await _client.PostAndEnsureBadRequestAsync("/badrequest", content, _outputHelper);
+  }
+
+  [Fact]
+  public async Task PostAndRedirectAsync()
+  {
+    var dto = new CountryDto { Id = "ESP", Name = "Spain" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+    var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
+    _ = await client.PostAndRedirectAsync("/redirect", content, "/redirected", _outputHelper);
   }
 }

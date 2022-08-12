@@ -14,7 +14,7 @@
 	<PackageReference Include="Ardalis.ApiEndpoints" Version="4.0.1" />
   <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="6.0.7" />
+  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="6.0.8" />
 	<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
   <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
   </ItemGroup>
