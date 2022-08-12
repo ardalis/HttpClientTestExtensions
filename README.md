@@ -99,6 +99,7 @@ string result = client.GetAndReturnStringAsync("/healthcheck");
 string result = client.GetAndEnsureSubstringAsync("/healthcheck", "OMG!");
 
 // GET and assert a 302 is returned
+var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
 await client.GetAndEnsureRedirectAsync("/oldone, "/newone");
 
 // GET and assert a 400 is returned
@@ -126,6 +127,7 @@ AuthorDto result = await client.PostAndDeserializeAsync("/authors", content);
 string result = client.PostAndEnsureSubstringAsync("/authors", content, "OMG!");
 
 // POST and assert a 302 is returned
+var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
 await client.PostAndEnsureRedirectAsync("/oldone", content, "/newone");
 
 // POST and assert a 400 is returned
@@ -153,6 +155,7 @@ AuthorDto result = await client.PutAndDeserializeAsync("/authors/1", content);
 string result = client.PutAndEnsureSubstringAsync("/authors/1", content, "OMG!");
 
 // PUT and assert a 302 is returned
+var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
 await client.PutAndEnsureRedirectAsync("/oldone", content, "/newone");
 
 // PUT and assert a 400 is returned
@@ -181,6 +184,7 @@ string result = client.DeleteAndEnsureSubstringAsync("/authors/1", "OMG!");
 await client.DeleteAndEnsureNoContentAsync("/authors/1");
 
 // DELETE and assert a 302 is returned
+var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
 await client.DeleteAndEnsureRedirectAsync("/oldone", "/newone");
 
 // DELETE and assert a 400 is returned
