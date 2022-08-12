@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
     <PackageId>Ardalis.HttpClientTestExtensions</PackageId>
     <Title>Ardalis.HttpClientTestExtensions</Title>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -32,11 +32,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="5.0.2" />
+    <PackageReference Include="System.Text.Json" Version="6.0.5" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
   </ItemGroup>
   
   <ItemGroup>
     <None Include="LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing">
+      <Version>6.0.8</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

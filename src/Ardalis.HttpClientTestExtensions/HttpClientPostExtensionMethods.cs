@@ -127,6 +127,29 @@ public static partial class HttpClientPostExtensionMethods
     return response;
   }
 
+  /// <summary>
+  /// Ensures a POST to a requestUri returns a 302 Redirect response status code
+  /// and redirects to the expected redirectUri
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="redirectUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> PostAndRedirectAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    string redirectUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PostAsync(requestUri, content, output);
+    client.EnsureNoAutoRedirect(output);
+    response.EnsureRedirect(redirectUri);
+    return response;
+  }
+
   private static async Task<HttpResponseMessage> PostAsync(
     this HttpClient client,
     string requestUri,

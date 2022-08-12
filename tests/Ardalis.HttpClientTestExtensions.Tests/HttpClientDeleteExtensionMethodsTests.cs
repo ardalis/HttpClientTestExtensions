@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Ardalis.HttpClientTestExtensions.Api;
 using Ardalis.HttpClientTestExtensions.Api.Dtos;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
@@ -13,11 +14,13 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
 {
   private readonly HttpClient _client;
   private readonly ITestOutputHelper _outputHelper;
+  private readonly CustomWebApplicationFactory _factory;
 
   public HttpClientDeleteExtensionMethodsTests(CustomWebApplicationFactory factory, ITestOutputHelper outputHelper)
   {
     _client = factory.CreateClient();
     _outputHelper = outputHelper;
+    _factory = factory;
   }
 
   [Fact]
@@ -78,5 +81,12 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
   public async Task DeleteAndEnsureBadRequestAsync()
   {
     _ = await _client.DeleteAndEnsureBadRequestAsync("/badrequest", _outputHelper);
+  }
+
+  [Fact]
+  public async Task DeleteAndRedirectAsync()
+  {
+    var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
+    _ = await client.DeleteAndRedirectAsync("/redirect", "/redirected", _outputHelper);
   }
 }

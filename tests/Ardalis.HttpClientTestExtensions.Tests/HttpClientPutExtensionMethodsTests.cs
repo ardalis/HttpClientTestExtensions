@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Ardalis.HttpClientTestExtensions.Api;
 using Ardalis.HttpClientTestExtensions.Api.Dtos;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
@@ -15,11 +16,13 @@ public class HttpClientPutExtensionMethodsTests : IClassFixture<CustomWebApplica
 {
   private readonly HttpClient _client;
   private readonly ITestOutputHelper _outputHelper;
+  private readonly CustomWebApplicationFactory _factory;
 
   public HttpClientPutExtensionMethodsTests(CustomWebApplicationFactory factory, ITestOutputHelper outputHelper)
   {
     _client = factory.CreateClient();
     _outputHelper = outputHelper;
+    _factory = factory;
   }
 
   [Fact]
@@ -71,5 +74,14 @@ public class HttpClientPutExtensionMethodsTests : IClassFixture<CustomWebApplica
     var dto = new CountryDto { Id = SeedData.TestCountry1.Id, Name = "'Merica" };
     var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
     _ = await _client.PutAndEnsureBadRequestAsync("/badrequest", content, _outputHelper);
+  }
+
+  [Fact]
+  public async Task PutAndRedirectAsync()
+  {
+    var dto = new CountryDto { Id = "ESP", Name = "Spain" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+    var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
+    _ = await client.PutAndRedirectAsync("/redirect", content, "/redirected", _outputHelper);
   }
 }
