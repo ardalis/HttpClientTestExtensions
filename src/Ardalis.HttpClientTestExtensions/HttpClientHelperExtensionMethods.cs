@@ -21,7 +21,7 @@ public static partial class HttpClientHelperExtensionMethods
   /// <returns></returns>
   public static void EnsureNoAutoRedirect(this HttpClient client, ITestOutputHelper output = null)
   {
-    output.WriteLine($"Ensuring HttpClient does not auto-redirect");
+    output?.WriteLine($"Ensuring HttpClient does not auto-redirect");
     var handler = client.GetType().BaseType.GetField("_handler", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(client);
     if (handler.GetType() == typeof(RedirectHandler)) 
     {
