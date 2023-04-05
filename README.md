@@ -118,6 +118,7 @@ await client.GetAndEnsureNotFoundAsync("/authors/-1");
 #### [POST](src\Ardalis.HttpClientTestExtensions\HttpClientPostExtensionMethods.cs)
 
 ```csharp
+// NOTE: There's a helper for this now, too (see below)
 var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
 
 // POST and return an object T
@@ -202,8 +203,6 @@ await client.DeleteAndEnsureNotFoundAsync("/wrongendpoint");
 
 ### [HttpResponseMessage](src\Ardalis.HttpClientTestExtensions\HttpResponseMessageExtensionMethods.cs)
 
-```csharp
-
 All of these methods are extensions on `HttpResponseMessage`.
 
 ```csharp
@@ -230,6 +229,25 @@ response.Ensure(HttpStatusCode.Created);
 
 // Assert a response contains a substing
 response.EnsureContainsAsync("OMG!", _testOutputHelper);
+```
+
+### [HttpContent](src\Ardalis.HttpClientTestExtensions\HttpContentExtensionMethods.cs)
+
+Extensions on `HttpContent` which you'll typically want to return a `StringContent` type as you serialize your DTO to JSON.
+
+```csharp
+
+// Convert a C# DTO to a StringContent JSON type
+var authorDto = new ("Steve");
+var content = HttpContent.FromModelAsJson(authorDto);
+
+// now you can use this with a POST, PUT, etc.
+// POST and return an object T
+AuthorDto result = await client.PostAndDeserializeAsync("/authors", content);
+
+// Or you can do it all in one line (assuming you already have the DTO)
+AuthorDto result = await client.PostAndDeserializeAsync("/authors",
+    HttpContent.FromModelAsJson(authorDto));
 ```
 
 ## Notes
