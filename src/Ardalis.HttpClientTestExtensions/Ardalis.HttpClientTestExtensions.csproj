@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-    <None Include="docs\README.md" Pack="true" PackagePath="../../README.md" />
+    <None Include="docs\README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
