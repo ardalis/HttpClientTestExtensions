@@ -1,7 +1,3 @@
-[![.NET Build and Test](https://github.com/ardalis/HttpClientTestExtensions/workflows/.NET%20Build%20and%20Test/badge.svg)](https://github.com/ardalis/HttpClientTestExtensions/actions?query=workflow%3A%22.NET+Build+and+Test%22)
-[![Nuget](https://img.shields.io/nuget/v/Ardalis.HttpClientTestExtensions)](https://www.nuget.org/packages/Ardalis.HttpClientTestExtensions/)
-[![Nuget](https://img.shields.io/nuget/dt/Ardalis.HttpClientTestExtensions)](https://www.nuget.org/packages/Ardalis.HttpClientTestExtensions/)
-
 # HttpClient Test Extensions
 
 Extensions for testing HTTP endpoints and deserializing the results. Currently works with XUnit.
@@ -255,4 +251,3 @@ AuthorDto result = await client.PostAndDeserializeAsync("/authors",
 - For now this is coupled with xUnit but if there is interest it could be split so the ITestOutputHelper dependency is removed/optional/swappable
 - Additional helpers for other verbs are planned
 - This is using System.Text.Json with default camelCase options that I've found most useful in my projects. This could be made extensible somehow as well.
-- When making updates to this file make sure to also update the docs/README file that is embedded in the NuGet package
