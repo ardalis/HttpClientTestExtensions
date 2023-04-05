@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'Ardalis.HttpClientTestExtensions.sln`
+      SOLUTION: 'Ardalis.HttpClientTestExtensions.sln'
 
     steps:
       - uses: actions/checkout@v2
