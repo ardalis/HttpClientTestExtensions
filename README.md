@@ -231,7 +231,7 @@ response.Ensure(HttpStatusCode.Created);
 response.EnsureContainsAsync("OMG!", _testOutputHelper);
 ```
 
-### [HttpContent](src\Ardalis.HttpClientTestExtensions\HttpContentExtensionMethods.cs)
+### [StringContentHelpers](src\Ardalis.HttpClientTestExtensions\StringContentHelpers.cs)
 
 Extensions on `HttpContent` which you'll typically want to return a `StringContent` type as you serialize your DTO to JSON.
 
@@ -239,15 +239,14 @@ Extensions on `HttpContent` which you'll typically want to return a `StringConte
 
 // Convert a C# DTO to a StringContent JSON type
 var authorDto = new ("Steve");
-var content = HttpContent.FromModelAsJson(authorDto);
+var content = StringContentHelpers.FromModelAsJson(authorDto);
 
 // now you can use this with a POST, PUT, etc.
-// POST and return an object T
 AuthorDto result = await client.PostAndDeserializeAsync("/authors", content);
 
 // Or you can do it all in one line (assuming you already have the DTO)
 AuthorDto result = await client.PostAndDeserializeAsync("/authors",
-    HttpContent.FromModelAsJson(authorDto));
+    StringContentHelpers.FromModelAsJson(authorDto));
 ```
 
 ## Notes

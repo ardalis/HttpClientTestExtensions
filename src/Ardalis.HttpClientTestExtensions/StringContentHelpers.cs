@@ -4,9 +4,9 @@ using System.Text.Json;
 
 namespace Ardalis.HttpClientTestExtensions;
 
-public static class HttpContentExtensionMethods
+public static class StringContentHelpers
 {
-  public static StringContent FromModelAsJson(this HttpContent content, object model)
+  public static StringContent FromModelAsJson(object model)
   {
     return new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
   }

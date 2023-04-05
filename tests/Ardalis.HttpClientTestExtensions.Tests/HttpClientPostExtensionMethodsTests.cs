@@ -79,7 +79,10 @@ public class HttpClientPostExtensionMethodsTests : IClassFixture<CustomWebApplic
   public async Task PostAndRedirectAsync()
   {
     var dto = new CountryDto { Id = "ESP", Name = "Spain" };
-    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+    // use helper to get content
+    //var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+    var content = StringContentHelpers.FromModelAsJson(dto);
     var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
     _ = await client.PostAndRedirectAsync("/redirect", content, "/redirected", _outputHelper);
   }
