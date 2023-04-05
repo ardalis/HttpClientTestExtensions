@@ -8,6 +8,6 @@ public static class HttpContentExtensionMethods
 {
   public static StringContent FromModelAsJson(this HttpContent content, object model)
   {
-    return new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json"));
+    return new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
   }
 }
