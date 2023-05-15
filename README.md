@@ -172,6 +172,34 @@ await client.PutAndEnsureForbiddenAsync("/authors/1", content);
 await client.PutAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
+#### [PATCH](src\Ardalis.HttpClientTestExtensions\HttpClientPatchExtensionMethods.cs)
+
+```csharp
+var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+
+// PATCH and return an object T
+AuthorDto result = await client.PatchAndDeserializeAsync("/authors/1", content);
+
+// PATCH and ensure response contains a substring
+string result = client.PatchAndEnsureSubstringAsync("/authors/1", content, "OMG!");
+
+// PATCH and assert a 302 is returned
+var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
+await client.PatchAndEnsureRedirectAsync("/oldone", content, "/newone");
+
+// PATCH and assert a 400 is returned
+await client.PatchAndEnsureBadRequestAsync("/authors/1", "banana");
+
+// PATCH and assert a 401 is returned
+await client.PatchAndEnsureUnauthorizedAsync("/authors/1", content);
+
+// PATCH and assert a 403 is returned
+await client.PatchAndEnsureForbiddenAsync("/authors/1", content);
+
+// PATCH and assert a 404 is returned
+await client.PatchAndEnsureNotFoundAsync("/wrongendpoint", content)
+```
+
 #### [DELETE](src\Ardalis.HttpClientTestExtensions\HttpClientDeleteExtensionMethods.cs)
 
 ```csharp
