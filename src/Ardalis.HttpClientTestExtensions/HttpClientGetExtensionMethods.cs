@@ -49,6 +49,23 @@ public static partial class HttpClientGetExtensionMethods
   }
 
   /// <summary>
+  /// Ensures a GET to a requestUri returns a 405 Method Not Allowed response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> GetAndEnsureMethodNotAllowedAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.GetAsync(requestUri, output);
+    response.EnsureMethodNotAllowed();
+    return response;
+  }
+
+  /// <summary>
   /// Makes a GET request to a requestUri and returns the response string
   /// </summary>
   /// <param name="client"></param>

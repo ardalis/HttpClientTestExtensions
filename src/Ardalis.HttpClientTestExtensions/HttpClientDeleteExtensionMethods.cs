@@ -47,6 +47,23 @@ public static partial class HttpClientDeleteExtensionMethods
   }
 
   /// <summary>
+  /// Ensures a DELETE to a requestUri returns a 405 Method Not Allowed response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> DeleteAndEnsureMethodNotAllowedAsync(
+    this HttpClient client,
+    string requestUri,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.DeleteAsync(requestUri, output);
+    response.EnsureMethodNotAllowed();
+    return response;
+  }
+
+  /// <summary>
   /// Ensures a DELETE to a requestUri returns a 204 No Content response status code
   /// </summary>
   /// <param name="client"></param>

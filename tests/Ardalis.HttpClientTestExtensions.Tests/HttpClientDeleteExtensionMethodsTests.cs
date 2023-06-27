@@ -89,4 +89,12 @@ public class HttpClientDeleteExtensionMethodsTests : IClassFixture<CustomWebAppl
     var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
     _ = await client.DeleteAndRedirectAsync("/redirect", "/redirected", _outputHelper);
   }
+
+  [Fact]
+  public async Task DeleteAndEnsureMethodNotAllowedAsync()
+  {
+    var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });
+    _ = await client.DeleteAndEnsureMethodNotAllowedAsync("/nodelete", _outputHelper);
+  }
+
 }
