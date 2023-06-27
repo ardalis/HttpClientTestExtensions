@@ -89,6 +89,25 @@ public static partial class HttpClientPostExtensionMethods
   }
 
   /// <summary>
+  /// Ensures a POST to a requestUri returns a 405 Method Not Allowed response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> PostAndEnsureMethodNotAllowedAsync(
+    this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PostAsync(requestUri, content, output);
+    response.EnsureMethodNotAllowed();
+    return response;
+  }
+
+  /// <summary>
   /// Makes a POST request to a requestUri and ensures the response contains a substring
   /// </summary>
   /// <param name="client"></param>

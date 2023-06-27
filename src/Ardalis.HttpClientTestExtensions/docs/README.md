@@ -109,6 +109,9 @@ await client.GetAndEnsureForbiddenAsync("/authors/1");
 
 // GET and assert a 404 is returned
 await client.GetAndEnsureNotFoundAsync("/authors/-1");
+
+// GET and assert a 405 is returned
+await client.GetAndEnsureMethodNotAllowedAsync("/wrongendpoint", content)
 ```
 
 #### [POST](src\Ardalis.HttpClientTestExtensions\HttpClientPostExtensionMethods.cs)
@@ -138,6 +141,9 @@ await client.PostAndEnsureForbiddenAsync("/authors", content);
 
 // POST and assert a 404 is returned
 await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
+
+// POST and assert a 405 is returned
+await client.PostAndEnsureMethodNotAllowedAsync("/wrongendpoint", content)
 ```
 
 #### [PUT](src\Ardalis.HttpClientTestExtensions\HttpClientPutExtensionMethods.cs)
@@ -166,6 +172,9 @@ await client.PutAndEnsureForbiddenAsync("/authors/1", content);
 
 // PUT and assert a 404 is returned
 await client.PutAndEnsureNotFoundAsync("/wrongendpoint", content)
+
+// PUT and assert a 405 is returned
+await client.PutAndEnsureMethodNotAllowedAsync("/wrongendpoint", content)
 ```
 
 #### [DELETE](src\Ardalis.HttpClientTestExtensions\HttpClientDeleteExtensionMethods.cs)
@@ -195,6 +204,9 @@ await client.DeleteAndEnsureForbiddenAsync("/authors/1");
 
 // DELETE and assert a 404 is returned
 await client.DeleteAndEnsureNotFoundAsync("/wrongendpoint");
+
+// DELETE and assert a 405 is returned
+await client.DeleteAndEnsureMethodNotAllowedAsync("/wrongendpoint", content)
 ```
 
 ### [HttpResponseMessage](src\Ardalis.HttpClientTestExtensions\HttpResponseMessageExtensionMethods.cs)
@@ -219,6 +231,9 @@ response.EnsureForbidden();
 
 // Assert a response has a status code of 404
 response.EnsureNotFound();
+
+// Assert a response has a status code of 405
+response.EnsureMethodNotAllowed();
 
 // Assert a response has a given status code
 response.Ensure(HttpStatusCode.Created);

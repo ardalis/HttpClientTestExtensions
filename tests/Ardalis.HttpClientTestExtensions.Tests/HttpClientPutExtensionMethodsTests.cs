@@ -77,6 +77,14 @@ public class HttpClientPutExtensionMethodsTests : IClassFixture<CustomWebApplica
   }
 
   [Fact]
+  public async Task PutAndEnsureMethodNotAllowedAsync()
+  {
+    var dto = new CountryDto { Id = SeedData.TestCountry1.Id, Name = "'Merica" };
+    var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+    _ = await _client.PutAndEnsureMethodNotAllowedAsync("/noput", content, _outputHelper);
+  }
+
+  [Fact]
   public async Task PutAndRedirectAsync()
   {
     var dto = new CountryDto { Id = "ESP", Name = "Spain" };
