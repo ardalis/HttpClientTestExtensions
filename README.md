@@ -86,7 +86,7 @@ public async Task ReturnsNotFoundGivenInvalidAuthorId()
 
 All of these methods are extensions on `HttpClient`; the following samples assume `client` is an `HttpClient`. All methods take an optional `ITestOutputHelper`, which is an xUnit type.
 
-#### [GET](src\Ardalis.HttpClientTestExtensions\HttpClientGetExtensionMethods.cs)
+#### [GET](src/Ardalis.HttpClientTestExtensions/HttpClientGetExtensionMethods.cs)
 
 ```csharp
 // GET and return an object T
@@ -115,7 +115,7 @@ await client.GetAndEnsureForbiddenAsync("/authors/1");
 await client.GetAndEnsureNotFoundAsync("/authors/-1");
 ```
 
-#### [POST](src\Ardalis.HttpClientTestExtensions\HttpClientPostExtensionMethods.cs)
+#### [POST](src/Ardalis.HttpClientTestExtensions/HttpClientPostExtensionMethods.cs)
 
 ```csharp
 // NOTE: There's a helper for this now, too (see below)
@@ -144,7 +144,7 @@ await client.PostAndEnsureForbiddenAsync("/authors", content);
 await client.PostAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
-#### [PUT](src\Ardalis.HttpClientTestExtensions\HttpClientPutExtensionMethods.cs)
+#### [PUT](src/Ardalis.HttpClientTestExtensions/HttpClientPutExtensionMethods.cs)
 
 ```csharp
 var content = new StringContent(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
@@ -172,7 +172,7 @@ await client.PutAndEnsureForbiddenAsync("/authors/1", content);
 await client.PutAndEnsureNotFoundAsync("/wrongendpoint", content)
 ```
 
-#### [DELETE](src\Ardalis.HttpClientTestExtensions\HttpClientDeleteExtensionMethods.cs)
+#### [DELETE](src/Ardalis.HttpClientTestExtensions/HttpClientDeleteExtensionMethods.cs)
 
 ```csharp
 // DELETE and return an object T
@@ -201,7 +201,7 @@ await client.DeleteAndEnsureForbiddenAsync("/authors/1");
 await client.DeleteAndEnsureNotFoundAsync("/wrongendpoint");
 ```
 
-### [HttpResponseMessage](src\Ardalis.HttpClientTestExtensions\HttpResponseMessageExtensionMethods.cs)
+### [HttpResponseMessage](src/Ardalis.HttpClientTestExtensions/HttpResponseMessageExtensionMethods.cs)
 
 All of these methods are extensions on `HttpResponseMessage`.
 
@@ -231,7 +231,7 @@ response.Ensure(HttpStatusCode.Created);
 response.EnsureContainsAsync("OMG!", _testOutputHelper);
 ```
 
-### [StringContentHelpers](src\Ardalis.HttpClientTestExtensions\StringContentHelpers.cs)
+### [StringContentHelpers](src/Ardalis.HttpClientTestExtensions/StringContentHelpers.cs)
 
 Extensions on `HttpContent` which you'll typically want to return a `StringContent` type as you serialize your DTO to JSON.
 
