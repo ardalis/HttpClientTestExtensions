@@ -18,6 +18,16 @@ public static class HttpResponseMessageExtensionMethods
   }
 
   /// <summary>
+  /// Ensures a response has a status code 405 Method Not Allowed
+  /// </summary>
+  /// <param name="response"></param>
+  /// <return></return>
+  public static void EnsureMethodNotAllowed(this HttpResponseMessage response)
+  {
+    response.Ensure(HttpStatusCode.MethodNotAllowed);
+  }
+
+  /// <summary>
   /// Ensures a response has a status code 204 No Content
   /// </summary>
   /// <param name="response"></param>

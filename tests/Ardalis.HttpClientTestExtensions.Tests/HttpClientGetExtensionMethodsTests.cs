@@ -83,6 +83,12 @@ public class HttpClientGetExtensionMethodsTests : IClassFixture<CustomWebApplica
   }
 
   [Fact]
+  public async Task GetAndEnsureMethodNotAllowedAsync()
+  {
+    _ = await _client.GetAndEnsureMethodNotAllowedAsync("/noget", _outputHelper);
+  }
+  
+  [Fact]
   public async Task GetAndRedirectAsync()
   {
     var client = _factory.CreateClient(new WebApplicationFactoryClientOptions() { AllowAutoRedirect = false });

@@ -31,7 +31,6 @@ public static partial class HttpClientPutExtensionMethods
     return result;
   }
 
-
   /// <summary>
   /// Ensures a PUT to a requestUri returns a 404 Not Found response status code
   /// </summary>
@@ -47,6 +46,24 @@ public static partial class HttpClientPutExtensionMethods
   {
     var response = await client.PutAsync(requestUri, content, output);
     response.EnsureNotFound();
+    return response;
+  }
+
+  /// <summary>
+  /// Ensures a PUT to a requestUri returns a 405 Method Not Allowed response status code
+  /// </summary>
+  /// <param name="client"></param>
+  /// <param name="requestUri"></param>
+  /// <param name="content"></param>
+  /// <param name="output">Optional; used to provide details to standard output.</param>
+  /// <returns></returns>
+  public static async Task<HttpResponseMessage> PutAndEnsureMethodNotAllowedAsync(this HttpClient client,
+    string requestUri,
+    HttpContent content,
+    ITestOutputHelper output = null)
+  {
+    var response = await client.PutAsync(requestUri, content, output);
+    response.EnsureMethodNotAllowed();
     return response;
   }
 
