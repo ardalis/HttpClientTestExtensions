@@ -12,9 +12,9 @@
     <Summary>Functional/integration tests using WebApplicationFactory and HttpClient often have a lot of repetition. These extensions minimize the repetition so fetching and deserializing data from endpoints is one line of code per test.</Summary>
     <RepositoryUrl>https://github.com/ardalis/HttpClientTestExtensions</RepositoryUrl>
     <PackageTags>aspnet asp.net aspnetcore asp.net core api web api rest endpoint controller test integration functional xunit unit</PackageTags>
-    <PackageReleaseNotes>Add NotAllowed extensions.</PackageReleaseNotes>
+    <PackageReleaseNotes>Adding PATCH verb support by @janskola in #37</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>4.1.0</Version>
+    <Version>4.2.0</Version>
     <AssemblyName>Ardalis.HttpClientTestExtensions</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
