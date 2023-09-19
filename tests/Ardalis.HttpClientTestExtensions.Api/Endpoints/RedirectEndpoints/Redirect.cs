@@ -9,7 +9,7 @@ public class Redirect : EndpointBaseSync
     
 {
   [Route("/redirect")]
-  [AcceptVerbs("GET", "POST", "PUT", "DELETE")]
+  [AcceptVerbs("GET", "POST", "PUT", "PATCH", "DELETE")]
   public override RedirectResult Handle()
   {
     return Redirect("/redirected");
