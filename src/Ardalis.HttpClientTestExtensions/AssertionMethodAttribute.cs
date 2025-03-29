@@ -6,7 +6,7 @@ namespace Ardalis.HttpClientTestExtensions;
 /// Indicates that a method is an assertion method.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-public class AssertionMethodAttribute : Attribute
+sealed partial class AssertionMethodAttribute : Attribute
 {
   
 }
