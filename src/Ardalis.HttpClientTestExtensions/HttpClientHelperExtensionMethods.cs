@@ -19,6 +19,7 @@ public static partial class HttpClientHelperExtensionMethods
   /// </code>
   /// </example>
   /// <returns></returns>
+  [AssertionMethod]
   public static void EnsureNoAutoRedirect(this HttpClient client, ITestOutputHelper output = null)
   {
     output?.WriteLine($"Ensuring HttpClient does not auto-redirect");

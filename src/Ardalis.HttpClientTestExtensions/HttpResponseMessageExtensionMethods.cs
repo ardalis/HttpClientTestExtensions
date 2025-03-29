@@ -12,6 +12,7 @@ public static class HttpResponseMessageExtensionMethods
   /// </summary>
   /// <param name="response"></param>
   /// <return></return>
+  [AssertionMethod]
   public static void EnsureNotFound(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.NotFound);
@@ -22,6 +23,7 @@ public static class HttpResponseMessageExtensionMethods
   /// </summary>
   /// <param name="response"></param>
   /// <return></return>
+  [AssertionMethod]
   public static void EnsureMethodNotAllowed(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.MethodNotAllowed);
@@ -32,6 +34,7 @@ public static class HttpResponseMessageExtensionMethods
   /// </summary>
   /// <param name="response"></param>
   /// <return></return>
+  [AssertionMethod]
   public static void EnsureNoContent(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.NoContent);
@@ -44,6 +47,7 @@ public static class HttpResponseMessageExtensionMethods
   /// <param name="redirectUri">The expected redirect URI</param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <return></return>
+  [AssertionMethod]
   public static void EnsureRedirect(
     this HttpResponseMessage response,
     string redirectUri,
@@ -62,6 +66,7 @@ public static class HttpResponseMessageExtensionMethods
   /// </summary>
   /// <param name="response"></param>
   /// <return></return>
+  [AssertionMethod]
   public static void EnsureBadRequest(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.BadRequest);
@@ -72,6 +77,7 @@ public static class HttpResponseMessageExtensionMethods
   /// </summary>
   /// <param name="response"></param>
   /// <return></return>
+  [AssertionMethod]
   public static void EnsureUnauthorized(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.Unauthorized);
@@ -82,6 +88,7 @@ public static class HttpResponseMessageExtensionMethods
   /// </summary>
   /// <param name="response"></param>
   /// <return></return>
+  [AssertionMethod]
   public static void EnsureForbidden(this HttpResponseMessage response)
   {
     response.Ensure(HttpStatusCode.Forbidden);
@@ -94,6 +101,7 @@ public static class HttpResponseMessageExtensionMethods
   /// <param name="substring">The substring to look for</param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <return>The response string</return>
+  [AssertionMethod]
   public static async Task<string> EnsureContainsAsync(
     this HttpResponseMessage response,
     string substring,
@@ -115,6 +123,7 @@ public static class HttpResponseMessageExtensionMethods
   /// <param name="response"></param>
   /// <param name="expected">The status code to expect</param>
   /// <return></return>
+  [AssertionMethod]
   public static void Ensure(this HttpResponseMessage response, HttpStatusCode expected)
   {
     if (response.StatusCode != expected)

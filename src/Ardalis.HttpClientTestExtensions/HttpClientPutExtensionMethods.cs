@@ -15,6 +15,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="content"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns>The deserialized response object</returns>
+  [AssertionMethod]
   public static async Task<T> PutAndDeserializeAsync<T>(
     this HttpClient client,
     string requestUri,
@@ -39,6 +40,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="content"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> PutAndEnsureNotFoundAsync(this HttpClient client,
     string requestUri,
     HttpContent content,
@@ -57,6 +59,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="content"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> PutAndEnsureMethodNotAllowedAsync(this HttpClient client,
     string requestUri,
     HttpContent content,
@@ -75,6 +78,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="content"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> PutAndEnsureUnauthorizedAsync(this HttpClient client,
   string requestUri,
   HttpContent content,
@@ -93,6 +97,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="content"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> PutAndEnsureForbiddenAsync(this HttpClient client,
   string requestUri,
   HttpContent content,
@@ -112,6 +117,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="substring"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns>The response string</returns>
+  [AssertionMethod]
   public static async Task<string> PutAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,
@@ -131,6 +137,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="content"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> PutAndEnsureBadRequestAsync(
     this HttpClient client,
     string requestUri,
@@ -152,6 +159,7 @@ public static partial class HttpClientPutExtensionMethods
   /// <param name="redirectUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> PutAndRedirectAsync(
     this HttpClient client,
     string requestUri,
