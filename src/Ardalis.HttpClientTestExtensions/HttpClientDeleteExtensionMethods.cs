@@ -14,6 +14,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns>The deserialized response object</returns>
+  [AssertionMethod]
   public static async Task<T> DeleteAndDeserializeAsync<T>(
     this HttpClient client,
     string requestUri,
@@ -36,6 +37,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> DeleteAndEnsureNotFoundAsync(
     this HttpClient client,
     string requestUri,
@@ -53,6 +55,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> DeleteAndEnsureMethodNotAllowedAsync(
     this HttpClient client,
     string requestUri,
@@ -70,6 +73,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> DeleteAndEnsureNoContentAsync(
     this HttpClient client,
     string requestUri,
@@ -88,6 +92,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="substring">The substring to look for in the response string</param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns>The response string</returns>
+  [AssertionMethod]
   public static async Task<string> DeleteAndEnsureSubstringAsync(
     this HttpClient client,
     string requestUri,
@@ -105,6 +110,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> DeleteAndEnsureUnauthorizedAsync(
     this HttpClient client,
     string requestUri,
@@ -122,6 +128,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> DeleteAndEnsureForbiddenAsync(
     this HttpClient client,
     string requestUri,
@@ -139,6 +146,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="requestUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> DeleteAndEnsureBadRequestAsync(
     this HttpClient client,
     string requestUri,
@@ -158,6 +166,7 @@ public static partial class HttpClientDeleteExtensionMethods
   /// <param name="redirectUri"></param>
   /// <param name="output">Optional; used to provide details to standard output.</param>
   /// <returns></returns>
+  [AssertionMethod]
   public static async Task<HttpResponseMessage> DeleteAndRedirectAsync(
     this HttpClient client,
     string requestUri,
